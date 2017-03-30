@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
@@ -27,6 +28,10 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
+//Cookie parser
+app.use(cookieParser());
+
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
@@ -39,16 +44,11 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
-app.use("/login_routes", loginRoutes(knex));
+app.use("/login", loginRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-// Login page
-app.get("/login", (req, res) => {
-  res.render("login");
 });
 
 app.listen(PORT, () => {
