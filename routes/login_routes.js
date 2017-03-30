@@ -4,9 +4,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-
   router.get("/", (req, res) => {
-
     res.render("login");
   });
 
@@ -18,11 +16,10 @@ module.exports = (knex) => {
       .from("users")
       .where('username', reqUsername)
       .then((results) => {
+        // set the cookie for the user
+        res.cookie('user_id', results[0].id);
         res.json(results);
     });
-
-    // res.redirect("/");
   });
-
   return router;
 }

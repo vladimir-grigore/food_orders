@@ -6,11 +6,8 @@ $(() => {
       method: "POST",
       url: "/login",
       data: $(this).serialize()
-    }).done((users) => {
-      for(user of users) {
-        $("<div>").text('ID is:' + user.id).appendTo($("body"));
-      }
+    }).done(function(){
+      window.location.href = '/'
     });
-
   });
 });
