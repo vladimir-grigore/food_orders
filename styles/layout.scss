@@ -15,11 +15,16 @@ body {
 header {
   h1.main-heading {
     font-size:8rem;
+    margin-top:8rem;
   }
 }
 
 section.menu-container{
   margin-top:5rem;
+
+  >.row{
+    padding-top:4rem;
+  }
 }
 
 section.menu-category-container{
@@ -38,7 +43,12 @@ article.menu-item {
   }
 
   form.quantity-form {
+      visibility: hidden;
       padding:1rem 0 1rem 0;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top:21.5rem;
 
       input#number-input{
         width:4rem;
@@ -46,7 +56,14 @@ article.menu-item {
       }
     }
 
+    form.quantity-form:hover {
+      visibility:visible;
+    }
+
+
   .menu-item-details{
+    margin-top:2rem;
+
     p.menu-item-name{
       font-family: 'Space Mono', monospace;
       font-weight:700;
@@ -105,9 +122,11 @@ article.checkout-item {
   }
 }
 
-.btn-group {
-
   button.checkout {
     margin-top:18rem;
+    display:inline-block;
   }
+
+  .table.no-border tr td, .table.no-border tr th {
+  border-width: 0;
 }
