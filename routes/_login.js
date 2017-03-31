@@ -4,8 +4,8 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-  router.get("/", (req, res) => {
-  });
+  // router.get("/", (req, res) => {
+  // });
 
   router.post("/", (req, res) => {
     let reqUsername = req.body.username;
@@ -20,5 +20,6 @@ module.exports = (knex) => {
         res.json(results);
     });
   });
+  
   return router;
 }

@@ -18,10 +18,11 @@ const knexLogger  = require('knex-logger');
 const moment      = require('moment-timezone');
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users"); // to be deleted
-const loginRoutes = require("./routes/_login");
-const logoutRoutes= require("./routes/_logout");
-const menuRoutes  = require("./routes/_menu");
+const usersRoutes    = require("./routes/users"); // to be deleted
+const loginRoutes    = require("./routes/_login");
+const logoutRoutes   = require("./routes/_logout");
+const menuRoutes     = require("./routes/_menu");
+const checkoutRoutes = require("./routes/_checkout");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -53,6 +54,7 @@ app.use("/api/users", usersRoutes(knex)); // to be deleted
 app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
 app.use("/api/menu", menuRoutes(knex));
+app.use("/api/checkout", checkoutRoutes(knex));
 
 // temporary - will be use the index page for this
 app.get('/menu', (req, res) => {
@@ -62,6 +64,11 @@ app.get('/menu', (req, res) => {
 // Login page
 app.get('/login', (req, res) => {
   res.render("login");
+});
+
+// Login page
+app.get('/checkout', (req, res) => {
+  res.render("checkout");
 });
 
 // Home page

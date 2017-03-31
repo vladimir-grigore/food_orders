@@ -7,7 +7,7 @@ $(() => {
       url: "/api/login",
       data: $(this).serialize()
     }).done(function(){
-      window.location.href = '/'
+      window.location.href = '/';
     });
   });
 });
