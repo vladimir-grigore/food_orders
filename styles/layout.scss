@@ -15,11 +15,16 @@ body {
 header {
   h1.main-heading {
     font-size:8rem;
+    margin-top:8rem;
   }
 }
 
 section.menu-container{
   margin-top:5rem;
+
+  >.row{
+    padding-top:4rem;
+  }
 }
 
 section.menu-category-container{
@@ -38,18 +43,27 @@ article.menu-item {
   }
 
   form.quantity-form {
+      visibility: hidden;
       padding:1rem 0 1rem 0;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top:21.5rem;
 
       input#number-input{
         width:4rem;
         text-align:center;
       }
-
-      button{
-      }
     }
 
+    form.quantity-form:hover {
+      visibility:visible;
+    }
+
+
   .menu-item-details{
+    margin-top:2rem;
+
     p.menu-item-name{
       font-family: 'Space Mono', monospace;
       font-weight:700;
@@ -65,4 +79,54 @@ article.menu-item {
       color:#ea584d;
     }
   }
+}
+
+footer {
+  background-color:#faf9f9;
+}
+
+
+
+
+
+// ------------------ STYLES FOR CHECKOUT STARTS HERE
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+section.checkout-container{
+  margin-top:10rem;
+}
+article.checkout-item {
+
+  padding-top:1rem;
+
+  img {
+    width:100%;
+  }
+
+  p.checkout-item-name {
+    font-family: 'Space Mono', monospace;
+  }
+
+  form.checkout-item-quantity-form {
+
+    input#number-input{
+      width:4rem;
+      text-align:center;
+    }
+  }
+}
+
+  button.checkout {
+    margin-top:18rem;
+    display:inline-block;
+  }
+
+  .table.no-border tr td, .table.no-border tr th {
+  border-width: 0;
 }
