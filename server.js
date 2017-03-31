@@ -45,7 +45,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex)); // to be deleted
 app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
 app.use("/api/menu", menuRoutes(knex));
