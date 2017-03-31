@@ -15,6 +15,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const moment      = require('moment-timezone');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users"); // to be deleted
@@ -52,6 +53,11 @@ app.use("/api/users", usersRoutes(knex)); // to be deleted
 app.use("/login", loginRoutes(knex));
 app.use("/logout", logoutRoutes());
 app.use("/menu", menuRoutes(knex));
+
+// temporary - will be use the index page for this
+app.get('/menu_temp', (req, res) => {
+  res.render("menu");
+});
 
 // Home page
 app.get("/", (req, res) => {
