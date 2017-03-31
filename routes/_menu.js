@@ -7,6 +7,7 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
+    
     knex
       .select("*")
       .from("menu_items")
@@ -39,6 +40,7 @@ module.exports = (knex) => {
       .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
       .then((rows) => { 
         // Create entry in order_items table based on the new order id
+        // will have to create a for loop for every individual menu item in the sbopping cart
         return knex('order_items').insert({order_id: rows[0], menu_item_id: subquery1, price: subquery2, quantity: 2})
       }).then((results) => {
         res.json(results);

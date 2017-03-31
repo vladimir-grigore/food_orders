@@ -19,9 +19,9 @@ const moment      = require('moment-timezone');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users"); // to be deleted
-const loginRoutes = require("./routes/login_routes");
-const logoutRoutes= require("./routes/logout");
-const menuRoutes  = require("./routes/menu_routes");
+const loginRoutes = require("./routes/_login");
+const logoutRoutes= require("./routes/_logout");
+const menuRoutes  = require("./routes/_menu");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
