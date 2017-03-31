@@ -8,17 +8,289 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/menu.js"></script>
+    <script type="text/javascript" src="/scripts/index.js"></script>
+
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Bootstrap latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome JS -->
+    <script src="https://use.fontawesome.com/7166d90cbb.js"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700,900" rel="stylesheet">
+
   </head>
 
   <body>
-    <h1>Hello World!</h1>
-    <section class="menu-catalog">
-      <section class="menu-category">
-        <article class="menu-item">
-          <a href="/menu" id="click-me">Click Me</div>
-        </article>
+    <div class="container">
+      <header>
+        <nav>
+          <div class="row">
+            <div class="col-sm-1">
+              <p>Hello, user</p>
+            </div>
+            <div class="col-sm-1 col-sm-offset-10">
+              <form action="/api/logout" method="POST">
+                <input type="submit" value="Logout">
+              </form>
+            </div>
+          </div>
+        </nav>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h1 class="main-heading">HIPTALIAN</h1>
+            <h2>Take me home tonight.</h4>
+          </div>
+        </div>
+      </header>
+
+      <section class="menu-container">
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-sm-3">
+              <article class="menu-item">
+                <img src="/img/image-1.png" alt="menu-item-1">
+                  <div class="row">
+                    <div class="col-sm-7 col-centered">
+                      <form class="form-inline quantity-form">
+                        <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <input type="text" class="form-control" id="number-input" placeholder="0">
+                        <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                <div class="menu-item-details">
+                  <div class="row">
+                    <div class="col-sm-9">
+                      <p class="menu-item-name">Ravioli Caprese</p>
+                      <p class="menu-item-desc">buffalo mozzerella + basil</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="menu-item-price">$18.00</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+
+
+
+          </div>
+
       </section>
-    </section>
+
+    </div>
+
+
+    <footer class="navbar-fixed-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-2">
+              <p>Total</p>
+              <h4>$18.45</h4>
+            </div>
+            <div class="col-sm-2 col-sm-offset-8">
+              <button>
+                Proceed to checkout <i class="fa fa-caret-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
