@@ -32,6 +32,9 @@ app.use(knexLogger(knex));
 //Cookie parser
 app.use(cookieParser());
 
+//Load files from public
+app.use(express.static("public"));
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));

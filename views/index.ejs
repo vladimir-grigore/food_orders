@@ -9,12 +9,56 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/index.js"></script>
+
+    <!-- Font Awesome JS -->
+    <script src="https://use.fontawesome.com/7166d90cbb.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
-    <form action="/logout" method="POST">
-      <input type="submit" value="Logout">
-    </form>
+    <header>
+      <nav>
+        <p>Hello, user</p>
+        <form action="/logout" method="POST">
+          <input type="submit" value="Logout">
+        </form>
+      </nav>
+      <h1>HIPTALIANO</h1>
+      <h2>Take me home tonight.</h4>
+    </header>
+
+    <section class="menu-catalog">
+      <section class="menu-category">
+        <h4>Appetizers</h4>
+        <article class="menu-item">
+          <img src="/img/image-1.png" alt="menu-item-1" width="300px">
+          <div class="quantity">
+            <button>
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <div class="number-box">
+              <input type='text' id='number-input' name='number-input' value='0' />
+            </div>
+            <button>
+              <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p>Ravioli Caprese</p>
+          <p>buffalo mozzerella + basil</p>
+          <h4>$18.00</h4>
+        </article>
+      </section>
+
+    </section>
+
+    <footer>
+      <p>Total</p>
+      <h4>$18.45</h4>
+      <button>
+        Proceed to checkout <i class="fa fa-caret-right" aria-hidden="true"></i>
+      </button>
+    </footer>
+
+
+
   </body>
 </html>
