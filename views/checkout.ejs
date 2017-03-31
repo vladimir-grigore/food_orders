@@ -48,100 +48,65 @@
         </div>
       </header>
 
-      <table class="table no-border">
-        <tr>
-          <th></th>
-          <th>QTY</th>
-          <th>PRICE</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td><img src="/img/image-1.png" alt="menu-item-1" width="200"></td>
-          <td><p class="checkout-item-name">Ravioli Caprese</p></td>
-          <td>
-            <form class="form-inline checkout-item-quantity-form">
-              <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              <input type="text" class="form-control" id="number-input" placeholder="0">
-              <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
-            </form>
-          </td>
-          <td>$18</td>
-          <td><a href="#" class="fa fa-times checkout-item-delete" aria-hidden="true"></a></td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-          <td>94</td>
-        </tr>
-      </table>
-
       <section class="checkout-container">
-        <div class="row vertical-align">
+        <div class="row">
           <div class="col-sm-10 col-sm-offset-1">
-            <article class="checkout-item">
-              <div class="col-sm-2">
-                <img src="/img/image-1.png" alt="menu-item-1">
-              </div>
-
-              <div class="col-sm-3">
-                <p class="checkout-item-name">Ravioli Caprese</p>
-              </div>
-
-              <div class="col-sm-3">
-                <form class="form-inline checkout-item-quantity-form">
-                  <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                  <input type="text" class="form-control" id="number-input" placeholder="0">
-                  <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                </form>
-              </div>
-
-              <div class="col-sm-2">
-                <p class="checkout-item-price">$18</p>
-              </div>
-
-              <div class="col-sm-2">
-                <a href="#" class="fa fa-times checkout-item-delete" aria-hidden="true"></a>
-              </div>
-            </article>
+            <table class="table no-border vert-align">
+              <tr>
+                <th></th>
+                <th><p>QTY</p></th>
+                <th><p>PRICE</p></th>
+                <th></th>
+              </tr>
+              <tr>
+                <td class="img-col"><img src="/img/image-1.png" alt="menu-item-1" width="200"></td>
+                <td><p class="checkout-item-name">Ravioli Caprese</p></td>
+                <td>
+                  <form class="form-inline checkout-item-quantity-form">
+                    <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <input type="text" class="form-control" id="number-input" placeholder="0">
+                    <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                  </form>
+                </td>
+                <td><p class="checkout-item-price">$18</p></td>
+                <td><a href="#" class="fa fa-times checkout-item-delete" aria-hidden="true"></a></td>
+              </tr>
+              <tr>
+                <td><img src="/img/image-1.png" alt="menu-item-1" width="200"></td>
+                <td><p class="checkout-item-name">Ravioli Caprese</p></td>
+                <td>
+                  <form class="form-inline checkout-item-quantity-form">
+                    <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <input type="text" class="form-control" id="number-input" placeholder="0">
+                    <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                  </form>
+                </td>
+                <td><p class="checkout-item-price">$18</p></td>
+                <td><a href="#" class="fa fa-times checkout-item-delete" aria-hidden="true"></a></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td><p><strong>TOTAL</strong></p></td>
+                <td><p class="total-price">$19.45<p></td>
+                <td></td>
+              </tr>
+            </table>
           </div>
         </div>
-
-        <div class="row vertical-align">
-          <div class="col-sm-10 col-sm-offset-1">
-            <article class="checkout-item">
-              <div class="col-sm-2">
-                <img src="/img/image-1.png" alt="menu-item-1">
-              </div>
-
-              <div class="col-sm-3">
-                <p class="checkout-item-name">Ravioli Caprese</p>
-              </div>
-
-              <div class="col-sm-3">
-                <form class="form-inline checkout-item-quantity-form">
-                  <button class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                  <input type="text" class="form-control" id="number-input" placeholder="0">
-                  <button class="btn btn-default"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                </form>
-              </div>
-
-              <div class="col-sm-2">
-                <p class="checkout-item-price">$18</p>
-              </div>
-
-              <div class="col-sm-2">
-                <a href="#" class="fa fa-times checkout-item-delete" aria-hidden="true"></a>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="col-sm-4 col-sm-offset-4 text-center">
-          <button class="btn checkout">Pay in person</button>
-          <button class="btn checkout">Pay online</button>
-        </div>
-
       </section>
+
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="col-sm-6">
+            <button class="btn checkout">Pay in person</button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn checkout">Pay online</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </body>
