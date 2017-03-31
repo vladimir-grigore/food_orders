@@ -4,24 +4,25 @@ $(() => {
 
   $.ajax({
     method: "GET",
-    url: "/api/admin"
+    url: "/api/orders"
   }).done((order_items) => {
     for(item of order_items) {
-      $("<div>").text(item.id).appendTo($("body"));
+      $("<div>").text(item.id).appendTo($("body")); // will use the .data('id', item.id) jQuery function
       $("<div>").text(item.payment_option).appendTo($("body"));
       $("<div>").text(item.placed_at).appendTo($("body"));
     }
   });
 
-  // $('#click-me').on('click', function(event){
+  // $('MENU_ITEM').on('click', function(event){
   //   event.preventDefault();
+  //   order_id = get order ID from data attribute
 
   //   $.ajax({
   //     method: "POST",
-  //     url: "/api/menu",
+  //     url: "/api/orders",
   //     data: $(this).serialize()
   //   }).done(
-  //     // TODO rediret to the GET route
+  //     // TODO rediret to the GET /admin/orders/:id route
   //   );
   // });
 
