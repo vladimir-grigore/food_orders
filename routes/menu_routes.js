@@ -19,28 +19,33 @@ module.exports = (knex) => {
     // TODO create entry in the orders table - get order_id
     // TODO create entry in the menu-items table
 
+    // let menu_item = req.body.menu_item; // to be modified 
+    let menu_item = "Bufala Mozzerella Salad";
 
+    // Timestamp with time zone
     let date = moment().tz("America/Vancouver").format();
-    console.log("DATE", date);
+
+    // Get the uset ID
     let user_id = req.cookies.user_id;
-    console.log("USER ID", user_id);
+    
+    // Temporary
     let payment_option = "in_person";
 
-    knex('orders')
-      .insert({user_id: user_id, payment_option: payment_option, placed_at: date})
-      .then((results) => {
-        console.log(results);
-      })
+    var subquery1 = knex('menu_items').select('id').where('name',  menu_item);
+    var subquery2 = knex('menu_items').select('price').where('name',  menu_item);
 
-    // knex
-    //   .select("id")
-    //   .from("users")
-    //   .where('username', reqUsername)
-    //   .then((results) => {
-    //     // set the cookie for the user
-    //     res.cookie('user_id', results[0].id);
-    //     res.json(results);
-    // });
+    // Create entry in orders table
+    knex('orders')
+      .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
+      .then((rows) => { 
+        // Create entry in order_items table based on the new order id
+        return knex('order_items').insert({order_id: rows[0], menu_item_id: subquery1, price: subquery2, quantity: 2})
+      }).then((results) => {
+        res.json(results);
+      }).catch((err) => { 
+        console.error(err); 
+      });
+
   });
   return router;
 }

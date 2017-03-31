@@ -20,9 +20,7 @@ $(() => {
       method: "POST",
       url: "/menu",
       data: $(this).serialize()
-    }).done(function(){
-      console.log("DONE!!!");
-    });
+    }).done();
   });
 
 });
