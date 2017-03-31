@@ -1,5 +1,7 @@
 $(() => {
 
+  // TODO wrap get call in a method
+
   $.ajax({
     method: "GET",
     url: "/api/menu"
@@ -20,7 +22,9 @@ $(() => {
       method: "POST",
       url: "/api/menu",
       data: $(this).serialize()
-    }).done();
+    }).done(
+      // TODO rediret to the GET route
+    );
   });
 
 });
