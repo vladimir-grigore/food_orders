@@ -10,55 +10,90 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/index.js"></script>
 
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Bootstrap latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <!-- Font Awesome JS -->
     <script src="https://use.fontawesome.com/7166d90cbb.js"></script>
   </head>
 
   <body>
-    <header>
-      <nav>
-        <p>Hello, user</p>
-        <form action="/logout" method="POST">
-          <input type="submit" value="Logout">
-        </form>
-      </nav>
-      <h1>HIPTALIANO</h1>
-      <h2>Take me home tonight.</h4>
-    </header>
-
-    <section class="menu-catalog">
-      <section class="menu-category">
-        <h4>Appetizers</h4>
-        <article class="menu-item">
-          <img src="/img/image-1.png" alt="menu-item-1" width="300px">
-          <div class="quantity">
-            <button>
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-            <div class="number-box">
-              <input type='text' id='number-input' name='number-input' value='0' />
+    <div class="container">
+      <header>
+        <nav>
+          <div class="row">
+            <div class="col-sm-1">
+              <p>Hello, user</p>
             </div>
-            <button>
-              <i class="fa fa-minus" aria-hidden="true"></i>
-            </button>
+            <div class="col-sm-1 col-sm-offset-10">
+              <form action="/logout" method="POST">
+                <input type="submit" value="Logout">
+              </form>
+            </div>
           </div>
-          <p>Ravioli Caprese</p>
-          <p>buffalo mozzerella + basil</p>
-          <h4>$18.00</h4>
-        </article>
+        </nav>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-5">
+            <h1>HIPTALIANO</h1>
+            <h2>Take me home tonight.</h4>
+          </div>
+        </div>
+      </header>
+
+      <section class="menu-catalog">
+        <section class="menu-category">
+          <div class="row">
+            <div class="col-sm-2">
+              <h4>Appetizers</h4>
+            </div>
+
+            <article class="menu-item">
+              <img src="/img/image-1.png" alt="menu-item-1" width="300px">
+              <div class="quantity">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <button>
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <div class="number-box">
+                      <input type='text' id='number-input' name='number-input' value='0' />
+                    </div>
+                    <button>
+                      <i class="fa fa-minus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="menu-item-details">
+                <p>Ravioli Caprese</p>
+                <p>buffalo mozzerella + basil</p>
+                <h4>$18.00</h4>
+              </div>
+
+            </article>
+          </div>
+        </section>
       </section>
 
-    </section>
+      <footer>
+        <div class="row">
+          <div class="col-sm-2">
+            <p>Total</p>
+            <h4>$18.45</h4>
+          </div>
+          <div class="col-sm-2 col-sm-offset-8">
+            <button>
+              Proceed to checkout <i class="fa fa-caret-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </footer>
 
-    <footer>
-      <p>Total</p>
-      <h4>$18.45</h4>
-      <button>
-        Proceed to checkout <i class="fa fa-caret-right" aria-hidden="true"></i>
-      </button>
-    </footer>
 
-
-
+    </container>
   </body>
 </html>
