@@ -15,7 +15,6 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const moment      = require('moment-timezone');
 
 // Seperated Routes for each Resource
 const usersRoutes    = require("./routes/users"); // to be deleted
@@ -23,6 +22,7 @@ const loginRoutes    = require("./routes/_login");
 const logoutRoutes   = require("./routes/_logout");
 const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
+const adminRoutes    = require("./routes/_admin");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -44,10 +44,8 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex)); // to be deleted
@@ -55,6 +53,7 @@ app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
 app.use("/api/menu", menuRoutes(knex));
 app.use("/api/checkout", checkoutRoutes(knex));
+app.use("/api/admin", adminRoutes(knex));
 
 // temporary - will be use the index page for this
 app.get('/menu', (req, res) => {
@@ -69,6 +68,11 @@ app.get('/login', (req, res) => {
 // Login page
 app.get('/checkout', (req, res) => {
   res.render("checkout");
+});
+
+// Admin panel
+app.get('/admin', (req, res) => {
+  res.render("admin");
 });
 
 // Home page
