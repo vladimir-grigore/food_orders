@@ -20,7 +20,7 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users"); // to be deleted
 const loginRoutes = require("./routes/login_routes");
 const logoutRoutes= require("./routes/logout");
-const menuRoutes  = require("./routes/menu");
+const menuRoutes  = require("./routes/menu_routes");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
