@@ -44,9 +44,6 @@ article.menu-item {
         width:4rem;
         text-align:center;
       }
-
-      button{
-      }
     }
 
   .menu-item-details{
@@ -69,5 +66,48 @@ article.menu-item {
 
 footer {
   background-color:#faf9f9;
-  
+}
+
+
+
+
+
+// ------------------ STYLES FOR CHECKOUT STARTS HERE
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+section.checkout-container{
+  margin-top:10rem;
+}
+article.checkout-item {
+
+  padding-top:1rem;
+
+  img {
+    width:100%;
+  }
+
+  p.checkout-item-name {
+    font-family: 'Space Mono', monospace;
+  }
+
+  form.checkout-item-quantity-form {
+
+    input#number-input{
+      width:4rem;
+      text-align:center;
+    }
+  }
+}
+
+.btn-group {
+
+  button.checkout {
+    margin-top:18rem;
+  }
 }
