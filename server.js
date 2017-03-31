@@ -36,11 +36,6 @@ app.use(knexLogger(knex));
 app.use(cookieParser());
 
 //Load files from public
-app.use(express.static("public"));
-
-
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -48,6 +43,11 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+
+
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex)); // to be deleted
