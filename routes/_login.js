@@ -5,7 +5,6 @@ const router  = express.Router();
 
 module.exports = (knex) => {
   router.get("/", (req, res) => {
-    res.render("login");
   });
 
   router.post("/", (req, res) => {

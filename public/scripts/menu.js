@@ -2,7 +2,7 @@ $(() => {
 
   $.ajax({
     method: "GET",
-    url: "/menu"
+    url: "/api/menu"
   }).done((menu_items) => {
     for(item of menu_items) {
       $("<div>").text(item.id).appendTo($("body"));
@@ -18,7 +18,7 @@ $(() => {
 
     $.ajax({
       method: "POST",
-      url: "/menu",
+      url: "/api/menu",
       data: $(this).serialize()
     }).done();
   });

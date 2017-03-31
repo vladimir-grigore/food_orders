@@ -50,13 +50,18 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex)); // to be deleted
-app.use("/login", loginRoutes(knex));
-app.use("/logout", logoutRoutes());
-app.use("/menu", menuRoutes(knex));
+app.use("/api/login", loginRoutes(knex));
+app.use("/api/logout", logoutRoutes());
+app.use("/api/menu", menuRoutes(knex));
 
 // temporary - will be use the index page for this
-app.get('/menu_temp', (req, res) => {
+app.get('/menu', (req, res) => {
   res.render("menu");
+});
+
+// Login page
+app.get('/login', (req, res) => {
+  res.render("login");
 });
 
 // Home page

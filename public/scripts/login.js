@@ -4,7 +4,7 @@ $(() => {
 
     $.ajax({
       method: "POST",
-      url: "/login",
+      url: "/api/login",
       data: $(this).serialize()
     }).done(function(){
       window.location.href = '/'
