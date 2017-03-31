@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require('express');
-const moment  = require('moment-timezone');
 const router  = express.Router();
 
 module.exports = (knex) => {
