@@ -56,19 +56,20 @@ $(() => {
   $(".menu-container").on('click', 'form.quantity-form > button.plus', function(event){
     event.preventDefault();
     var menuName = $(this).parent().siblings(".menu-item-details").find(".menu-item-name").text();
-    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data('price');
+    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data("price");
+    var menuItemId = $(this).parents("article.menu-item").data("id");
 
     var $quantityField = $(this).parent().find("input.number-input");
     var value = Number($quantityField.val());
     $quantityField.val(value + 1);
-    addMenuItemToBasket(menuName, Number(menuPrice));
+    addMenuItemToBasket(menuName, Number(menuPrice), Number(menuItemId));
   })
 
   // Handle click events for removing items from the cart
   $(".menu-container").on('click', 'form.quantity-form > button.minus', function(event){
     event.preventDefault();
     var menuName = $(this).parent().siblings(".menu-item-details").find(".menu-item-name").text();
-    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data('price');
+    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data("price");
     
     var $quantityField = $(this).parent().find("input.number-input");
     var value = Number($quantityField.val());
@@ -81,7 +82,7 @@ $(() => {
   function createMenuElement(item) {
 
     let $item = $("<div>").addClass("col-sm-3");
-    let $article = $("<article>").addClass("menu-item").appendTo($item);
+    let $article = $("<article>").addClass("menu-item").data('id', item.id).appendTo($item);
     let $image = $("<img>").attr("src", item.image_url).attr("alt", "menu-item-1").appendTo($article);
 
     let $orderForm = $("<form>").addClass("form-inline quantity-form").appendTo($article);
@@ -105,10 +106,11 @@ $(() => {
 });
 
 // Add item to basket
-function addMenuItemToBasket(title, price) {
+function addMenuItemToBasket(title, price, id) {
   
   if(!orderObject[title]){
     orderObject[title] = {
+      "id": id,
       "quantity": 1,
       "price": price
     }
