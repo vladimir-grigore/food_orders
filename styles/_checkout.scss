@@ -1,0 +1,75 @@
+.vertical-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+section.checkout-container{
+  margin-top:10rem;
+}
+
+button.checkout {
+  margin-top:12rem;
+  margin-bottom:10rem;
+  display:inline-block;
+  width:100%;
+  padding:2rem;
+  border-radius:0;
+  text-transform:uppercase;
+  border:4px solid black;
+  background-color:transparent;
+  font-weight:500;
+
+  &:hover{
+    background-color: black;
+    border:4px solid black;
+    color:white;
+  }
+}
+
+.table.no-border tr td, .table.no-border tr th {
+  border-width: 0;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+.table {
+  p.checkout-item-name{
+    font-family:$font-accent;
+  }
+
+  p.total-price{
+    font-size:1.7rem;
+    font-weight:500;
+    color:$color-accent;
+  }
+
+  a{
+    text-decoration:none;
+    color:black;
+  }
+
+  a:hover{
+    text-decoration:none;
+    color:$color-accent;
+  }
+}
+
+form.checkout-item-quantity-form {
+  input#number-input{
+    width:4rem;
+    text-align:center;
+  }
+  button{
+    border:none;
+
+    &:hover {
+      background-color:transparent;
+      color:$color-accent;
+    }
+  }
+}

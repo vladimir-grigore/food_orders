@@ -10,7 +10,7 @@ $(() => {
 
   loadMenuItems();
 
-  // Proceed to checkout 
+  // Proceed to checkout
   $("#checkout-btn").on('click', function(event){
     event.preventDefault();
 
@@ -34,7 +34,7 @@ $(() => {
         $wrappingRow = $("<div>").addClass("row");
         for(let item of subset){
           var $item = createMenuElement(item);
-          $wrappingRow.append($item); 
+          $wrappingRow.append($item);
         }
         $(".menu-container").append($wrappingRow);
     }
@@ -58,7 +58,6 @@ $(() => {
     event.preventDefault();
     var menuName = $(this).parent().siblings(".menu-item-details").find(".menu-item-name").text();
     var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data("price");
-    
     var $quantityField = $(this).parent().find("input.number-input");
     var value = Number($quantityField.val());
     if (value > 0) {
@@ -94,8 +93,8 @@ $(() => {
 });
 
 // Add item to basket
+
 function addMenuItemToBasket(title, price, id) {
-  
   if(!orderObject[title]){
     orderObject[title] = {
       "id": id,

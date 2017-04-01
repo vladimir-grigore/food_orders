@@ -1,7 +1,7 @@
 $(() => {
-  $('#order').on('click', function(){
+  $('.btn.checkout').on('click', function(){
 
-    $.post('/api/orders')
+    $.post('/api/checkout/:id')
   })
 
 });
