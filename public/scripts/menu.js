@@ -26,25 +26,31 @@ $(() => {
     }
   }
 
+  // Handle click events for adding items to the cart
   $(".menu-container").on('click', 'form.quantity-form > button.plus', function(event){
     event.preventDefault();
+    var menuName = $(this).parent().siblings(".menu-item-details").find(".menu-item-name").text();
+    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data('price');
+
     var $quantityField = $(this).parent().find("input.number-input");
     var value = Number($quantityField.val());
     $quantityField.val(value + 1);
+    addMenuItemToBasket(menuName, menuPrice);
   })
 
-   $(".menu-container").on('click', 'form.quantity-form > button.minus', function(event){
-      event.preventDefault();
-      var $quantityField = $(this).parent().find("input.number-input");
-      var value = Number($quantityField.val());
-      if (value > 0) {
-        $quantityField.val(value - 1);
-      }
-    })
-
-  // Add item to basket
-  function addMenuItemToBasket() {
-  }
+  // Handle click events for removing items from the cart
+  $(".menu-container").on('click', 'form.quantity-form > button.minus', function(event){
+    event.preventDefault();
+    var menuName = $(this).parent().siblings(".menu-item-details").find(".menu-item-name").text();
+    var menuPrice = $(this).parent().siblings(".menu-item-details").find(".menu-item-price").data('price');
+    
+    var $quantityField = $(this).parent().find("input.number-input");
+    var value = Number($quantityField.val());
+    if (value > 0) {
+      $quantityField.val(value - 1);
+      removeMenuItemFromBasket(menuName, menuPrice);
+    }
+  })
 
   function createMenuElement(item) {
 
@@ -65,21 +71,21 @@ $(() => {
     $("<p>").addClass("menu-item-name").text(item.name).appendTo($detailsCol9);
     $("<p>").addClass("menu-item-desc").text(item.description).appendTo($detailsCol9);
     let $detailsCol3 = $("<div>").addClass("col-sm-3").appendTo($detailsRow);
-    $("<p>").addClass("menu-item-price").text("$" + item.price).appendTo($detailsCol3);
+    $("<p>").addClass("menu-item-price").text("$" + item.price).data('price', item.price).appendTo($detailsCol3);
 
     return $item;
   }
 
-  // $('#click-me').on('click', function(event){
-  //   event.preventDefault();
-
-  //   $.ajax({
-  //     method: "POST",
-  //     url: "/api/menu",
-  //     data: $(this).serialize()
-  //   }).done(
-  //     // TODO rediret to the GET route
-  //   );
-  // });
-
 });
+
+// Add item to basket
+function addMenuItemToBasket(title, price) {
+  console.log("NAME", title);
+  console.log("PRICE", price);
+}
+
+// Remove item from basket
+function removeMenuItemFromBasket(title, price) {
+  console.log("NAME", title);
+  console.log("PRICE", price);
+}
