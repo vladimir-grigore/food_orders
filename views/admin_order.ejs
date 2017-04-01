@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>Current Order</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/orders.js"></script>
-    <script type="text/javascript" src="/scripts/twilio-order-call.js"></script>
   </head>
 
   <body>
-    <h1>ADMIN PANEL</h1>
-
-    <button id='order'>Order</button>
-
-
+    <h1>Estimated Order Time:</h1>
+    <form class="orderTime" action="/orderTime" method="POST">
+      <label for="orderTime">Enter estimate in minutes:</label>
+      <input id="orderTime" type="text" name="time" style="width: 300px">
+      <input type="submit" value="Submit">
+    </form>
   </body>
 </html>

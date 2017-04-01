@@ -18,6 +18,8 @@ const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
 const twilioRouter = require('./routes/twilio-router')(dataHelper);
 const orderRoutes    = require("./routes/_orders");
+const twilio_helper = require('./routes/twilio_helper');
+
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -61,6 +63,22 @@ app.use("/api/orders", orderRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+
+
+//*****************************************************************
+
+
+app.get('/orderTime', (req, res) => {
+  res.render("admin_order");
+});
+
+app.post('/orderTime', (req, res) => {
+  twilio_helper.text(req.body.time);
+  res.redirect('/'); // TODO: better redirect
+})
+//*****************************************************************
+
 
 
 // temporary - will be use the index page for this
