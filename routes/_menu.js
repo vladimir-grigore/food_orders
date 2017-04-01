@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment  = require('moment-timezone');
 
 module.exports = (knex) => {
 
@@ -16,9 +17,6 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
-    // TODO create entry in the orders table - get order_id
-    // TODO create entry in the menu-items table
-
     // let menu_item = req.body.menu_item; // to be modified 
     let menu_item = "Bufala Mozzerella Salad";
 
@@ -31,32 +29,34 @@ module.exports = (knex) => {
     // Temporary
     let payment_option = "in_person";
 
-    var menuItemID = '';
-    var menuItemPrice = '';
-    var findMenuItemIdAndPrice = knex('menu_items').select('id', 'price').where('name',  menu_item).limit(1);
-    findMenuItemIdAndPrice.then((rows) => {
-      if(rows.length) {
-        const menuItem = rows[0];
-        return Promise.resolve(menuItem);
-      }
-    }).then((menuItem) => {
-      menuItemID = menuItem.id;
-      menuItemPrice = menuItem.price;
-    }).catch((err) => { throw err; });
-
+    // Create a new order
+    let orderID;
     // Create entry in orders table
     knex('orders')
       .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
-      .then((rows) => { 
+      .then((rows) => {
+        orderID = rows[0];
         // Create entry in order_items table based on the new order id
-        // will have to create a for loop for every individual menu item in the sbopping cart
-        return knex('order_items').insert({order_id: rows[0], menu_item_id: menuItemID, price: menuItemPrice, quantity: 2})
-      }).then((results) => {
-        res.json(results);
+        let orderObj = req.body;
+        for(let item in orderObj){
+          // Get menu item ID based on the title
+          // Create entry in the order_items table
+          knex('menu_items').select('id').where('name', item).limit(1)
+            .then((rows) => {
+              return knex('order_items')
+                .insert({order_id: orderID, menu_item_id: rows[0].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id');
+            }).then((rows) => {
+            })
+            .catch((err) => { 
+              console.error(err); 
+            });
+          }   
       }).catch((err) => { 
         console.error(err); 
       });
-
+    // // Ajax return    
+    // res.json(results);
   });
+
   return router;
 }
