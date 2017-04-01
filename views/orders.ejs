@@ -1,17 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/orders.js"></script>
-  </head>
+<%- include partials/_head %>
 
   <body>
-    <h1>ADMIN PANEL</h1>
+    <div class="container">
+      <header>
+        <nav>
+          <div class="row">
+            <div class="col-sm-1">
+              <p>Hello, user</p>
+            </div>
+            <div class="col-sm-1 col-sm-offset-10">
+              <form action="/api/logout" method="POST">
+                <input type="submit" value="Logout">
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h1 class="main-heading">PENDING ORDERS</h1>
+          </div>
+        </div>
+      </header>
+
+      <section class="orders-container">
+
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 order-row">
+            <div class="before-slide">
+              <div class="vertical-align">
+                <div class="col-sm-2">
+                  <p class="items">4 ITEMS</p>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1 text-center">
+                  <p class="customer-order">Customer order #1</p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="time">8 MINUTES AGO</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="after-reveal">
+              <div class="row vertical-align text-center">
+                <div class="col-sm-4">
+                  <img class="customer-item-img" src="/img/image-1.png" alt="menu-item-1">
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-name">Taglierini</p>
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-quantity">x2</p>
+                </div>
+              </div>
+              <div class="row vertical-align text-center">
+                <div class="col-sm-4">
+                  <img class="customer-item-img" src="/img/image-2.png" alt="menu-item-1">
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-name">Taglierini</p>
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-quantity">x2</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                  <form class="estimated-time-form form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="estimated-time-input" placeholder="Estimated time (minutes)">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2 col-sm-offset-5 text-center">
+              <i class="fa fa-caret-down down-arrow" aria-hidden="true"></i>
+            </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 order-row">
+            <div class="before-slide">
+              <div class="vertical-align">
+                <div class="col-sm-2">
+                  <p class="items">4 ITEMS</p>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1 text-center">
+                  <p class="customer-order">Customer order #1</p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="time">8 MINUTES AGO</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="after-reveal">
+              <div class="row vertical-align text-center">
+                <div class="col-sm-4">
+                  <img class="customer-item-img" src="/img/image-1.png" alt="menu-item-1">
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-name">Taglierini</p>
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-quantity">x2</p>
+                </div>
+              </div>
+              <div class="row vertical-align text-center">
+                <div class="col-sm-4">
+                  <img class="customer-item-img" src="/img/image-2.png" alt="menu-item-1">
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-name">Taglierini</p>
+                </div>
+                <div class="col-sm-4">
+                  <p class="customer-item-quantity">x2</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                  <form class="estimated-time-form form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="estimated-time-input" placeholder="Estimated time (minutes)">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2 col-sm-offset-5 text-center">
+              <i class="fa fa-caret-down down-arrow" aria-hidden="true"></i>
+            </div>
+        </div>
+      </section>
+    </div>
+
+
+    <script>
+
+      $('.before-slide').click(function(){
+          $(this).siblings('.after-reveal').slideToggle("400");
+          var collapsed=$(this).find('i').hasClass('fa-caret-down');
+          $('.order-row').find('i').removeClass('fa-caret-up');
+          $('.order-row').find('i').addClass('fa-caret-down');
+          if(collapsed)
+              $(this).find('i').toggleClass('fa-caret-down fa-caret-up')
+        });
+    </script>
+
   </body>
 </html>

@@ -1,0 +1,28 @@
+html {
+  font-size:14px;
+}
+
+body {
+  background-color: #fff ;
+  font-family:$font-main;
+  font-size:1rem;
+}
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.vertical-align{
+  display:flex;           /* Magic begins                    */
+  justify-content: center; /* Center horizontally             */
+  align-items: center;     /* Center vertically               */
+  min-width: 0;
+}
+
+header {
+  h1.main-heading {
+    font-size:5rem;
+    margin-top:8rem;
+  }
+}
