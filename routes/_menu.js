@@ -40,15 +40,14 @@ module.exports = (knex) => {
         for(let item in orderObj){
           knex('order_items')
             .insert({order_id: orderID, menu_item_id: orderObj[item].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id')
-            .then((rows) => {
-            // // Ajax return    
-            // res.json(results);
-            })
+            .then((rows) => {})
             .catch((err) => { 
               console.error(err); 
             });
         }
+        res.json(orderID);
       });
+
   });
 
   return router;

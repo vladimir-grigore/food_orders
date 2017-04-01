@@ -91,7 +91,7 @@ app.get('/login', (req, res) => {
 });
 
 // Checkout page
-app.get('/checkout', (req, res) => {
+app.get('/checkout/:id', (req, res) => {
   res.render("checkout");
 });
 

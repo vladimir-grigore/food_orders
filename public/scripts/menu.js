@@ -18,23 +18,11 @@ $(() => {
       method: "POST",
       url: "/api/menu",
       data: orderObject
-    }).done(
-      // TODO rediret to the GET /checkout/:id route
+    }).done(function(orderID){
+        window.location.href = `/checkout/${orderID}`;
+      }
     );
   })
-
-   // $('MENU_ITEM').on('click', function(event){
-  //   event.preventDefault();
-  //   order_id = get order ID from data attribute
-
-  //   $.ajax({
-  //     method: "POST",
-  //     url: "/api/orders",
-  //     data: $(this).serialize()
-  //   }).done(
-  //     // TODO rediret to the GET /admin/orders/:id route
-  //   );
-  // });
 
   function renderMenuItems(menu_items) {
     $(".menu-container").empty();
