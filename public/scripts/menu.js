@@ -35,7 +35,7 @@ $(() => {
     var $quantityField = $(this).parent().find("input.number-input");
     var value = Number($quantityField.val());
     $quantityField.val(value + 1);
-    addMenuItemToBasket(menuName, menuPrice);
+    addMenuItemToBasket(menuName, Number(menuPrice));
   })
 
   // Handle click events for removing items from the cart
@@ -48,7 +48,7 @@ $(() => {
     var value = Number($quantityField.val());
     if (value > 0) {
       $quantityField.val(value - 1);
-      removeMenuItemFromBasket(menuName, menuPrice);
+      removeMenuItemFromBasket(menuName, Number(menuPrice));
     }
   })
 
@@ -80,12 +80,26 @@ $(() => {
 
 // Add item to basket
 function addMenuItemToBasket(title, price) {
-  console.log("NAME", title);
-  console.log("PRICE", price);
+  
+  if(!orderObject[title]){
+    orderObject[title] = {
+      "quantity": 1,
+      "price": price
+    }
+  } else {
+      orderObject[title].quantity += 1;
+      orderObject[title].price += price;
+  }
 }
 
 // Remove item from basket
 function removeMenuItemFromBasket(title, price) {
-  console.log("NAME", title);
-  console.log("PRICE", price);
+  orderObject[title].quantity -= 1;
+  orderObject[title].price -= price;
+  if (orderObject[title].quantity === 0){
+    delete orderObject[title];
+  }
 }
+
+// Hold information about the order
+var orderObject = {};
