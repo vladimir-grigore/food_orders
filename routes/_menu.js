@@ -7,9 +7,8 @@ const moment  = require('moment-timezone');
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    
     knex
-      .select("*")
+      .select("id", "name", "image_url", "price", "description")
       .from("menu_items")
       .then((results) => {
         res.json(results);
@@ -17,9 +16,6 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
-    // let menu_item = req.body.menu_item; // to be modified 
-    let menu_item = "Bufala Mozzerella Salad";
-
     // Timestamp with time zone
     let date = moment().tz("America/Vancouver").format();
 
@@ -34,28 +30,25 @@ module.exports = (knex) => {
     // Create entry in orders table
     knex('orders')
       .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
-      .then((rows) => {
-        orderID = rows[0];
-        // Create entry in order_items table based on the new order id
-        let orderObj = req.body;
+      .asCallback((err, rows) => {
+        if (err) {
+          return console.error(err);
+        }
+        orderID = rows[0]; 
+        // For each order item entry create a row in the order_items table
+        let orderObj = req.body;  
         for(let item in orderObj){
-          // Get menu item ID based on the title
-          // Create entry in the order_items table
-          knex('menu_items').select('id').where('name', item).limit(1)
+          knex('order_items')
+            .insert({order_id: orderID, menu_item_id: orderObj[item].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id')
             .then((rows) => {
-              return knex('order_items')
-                .insert({order_id: orderID, menu_item_id: rows[0].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id');
-            }).then((rows) => {
+            // // Ajax return    
+            // res.json(results);
             })
             .catch((err) => { 
               console.error(err); 
             });
-          }   
-      }).catch((err) => { 
-        console.error(err); 
+        }
       });
-    // // Ajax return    
-    // res.json(results);
   });
 
   return router;
