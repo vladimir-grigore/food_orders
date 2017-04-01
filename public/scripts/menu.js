@@ -36,8 +36,8 @@ $(() => {
     let $details = $("<div>").addClass("menu-item-details").appendTo($article);
     let $detailsRow = $("<div>").addClass("row").appendTo($details);
     let $detailsCol9 = $("<div>").addClass("col-sm-9").appendTo($detailsRow);
-    $("<div>").addClass("menu-item-name").text(item.name).appendTo($detailsCol9);
-    $("<div>").addClass("menu-item-desc").text(item.description).appendTo($detailsCol9);
+    $("<p>").addClass("menu-item-name").text(item.name).appendTo($detailsCol9);
+    $("<p>").addClass("menu-item-desc").text(item.description).appendTo($detailsCol9);
     let $detailsCol3 = $("<div>").addClass("col-sm-3").appendTo($detailsRow);
     $("<p>").addClass("menu-item-price").text("$" + item.price).appendTo($detailsCol3);
 
