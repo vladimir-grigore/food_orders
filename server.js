@@ -13,12 +13,14 @@ const knex        = require("knex")(knexConfig[ENV]);
 // Seperated Routes for each Resource
 const loginRoutes    = require("./routes/_login");
 const logoutRoutes   = require("./routes/_logout");
-const menuRoutes     = require("./routes/_menu");
+// const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
 const twilioRouter = require('./routes/twilio-router');
 const orderRoutes    = require("./routes/_orders");
+
 const twilio_helper = require('./routes/twilio_helper');
 
+const indexRoutes     = require("./routes/_index");
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -51,12 +53,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Mount all resource routes
 app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
-app.use("/api/menu", menuRoutes(knex));
+// app.use("/api/menu", menuRoutes(knex));
 app.use("/api/checkout", checkoutRoutes(knex));
 
 app.use('/twilio', twilioRouter);
 
 app.use("/api/orders", orderRoutes(knex));
+app.use("/api/index", indexRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
@@ -81,9 +84,9 @@ app.post('/orderTime', (req, res) => {
 
 
 // temporary - will be use the index page for this
-app.get('/menu', (req, res) => {
-  res.render("menu");
-});
+// app.get('/menu', (req, res) => {
+//   res.render("menu");
+// });
 
 // Login page
 app.get('/login', (req, res) => {
