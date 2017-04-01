@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/orders.js"></script>
-
-    <!-- Bootstrap latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Bootstrap latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!-- Font Awesome JS -->
-    <script src="https://use.fontawesome.com/7166d90cbb.js"></script>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700,900" rel="stylesheet">
-
-  </head>
+<%- include partials/_head %>
 
   <body>
     <div class="container">
@@ -50,15 +25,71 @@
 
       <section class="orders-container">
         <div class="row">
-          <div class="col-sm-10 col-sm-offset-1">
+          <div class="col-sm-8 col-sm-offset-2 order-row">
+            <div class="vertical-align">
+              <div class="col-sm-2">
+                <p class="items">4 ITEMS</p>
+              </div>
+              <div class="col-sm-6 col-sm-offset-1 text-center">
+                <p class="customer-order">Customer order #1</p>
+              </div>
+              <div class="col-sm-3">
+                <p class="time">8 MINUTES AGO</p>
+              </div>
+            </div>
+            <div class="col-sm-2 col-sm-offset-5 text-center">
+              <i class="fa fa-caret-down down-arrow" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 order-row">
+            <div class="before-slide">
+              <div class="vertical-align">
+                <div class="col-sm-2">
+                  <p class="items">4 ITEMS</p>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1 text-center">
+                  <p class="customer-order">Customer order #1</p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="time">8 MINUTES AGO</p>
+                </div>
+              </div>
+              <div class="after-reveal">
+                <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <p class="customer-item-name">Ravioli Caprese</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="customer-item-quantity">x2</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 col-sm-offset-5 text-center">
+                <i class="fa fa-caret-down down-arrow" aria-hidden="true"></i>
+              </div>
+            </div>
+
+
 
           </div>
         </div>
+
       </section>
 
-      
-
     </div>
+
+    <script>
+    $( ".order-row" ).click(function() {
+      $( ".after-reveal" ).slideToggle( "400");
+      $(this).find($("i")).toggleCalss('fa-caret-down fa-caret-up');
+
+    });
+
+
+    </script>
 
   </body>
 </html>

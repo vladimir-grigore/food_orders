@@ -1,0 +1,50 @@
+.orders-container{
+  margin:6rem 0 10rem 0;
+  background-color:$color-bg;
+  border:3px solid #323232;
+}
+
+.order-row{
+  color:#323232;
+  padding:1rem 1rem 1rem 1rem;
+  margin-top:4rem;
+  border-bottom:1px solid #323232;
+
+  p.items{
+    font-size:1.4rem;
+    font-weight:500;
+    font-family:$font-accent;
+  }
+  p.customer-order{
+    font-size:2rem;
+    text-transform: uppercase;
+    letter-spacing:0.3rem;
+    font-weight:500;
+  }
+  p.time{
+    float:right;
+    font-weight:500;
+    color:$color-accent;
+    font-family:$font-accent;
+  }
+    &:hover{
+      p.customer-order{
+        color:$color-accent;
+        font-weight:700;
+      }
+    }
+
+  .down-arrow{
+    top:20rem;
+  }
+}
+
+.after-reveal{
+  height:400px;
+  display:none;
+  padding:1rem;
+
+  p.customer-item-quantity{
+    float:right;
+  }
+}
