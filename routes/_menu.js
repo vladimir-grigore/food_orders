@@ -17,9 +17,6 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
-    // TODO create entry in the orders table - get order_id
-    // TODO create entry in the menu-items table
-
     // let menu_item = req.body.menu_item; // to be modified 
     let menu_item = "Bufala Mozzerella Salad";
 
@@ -39,39 +36,27 @@ module.exports = (knex) => {
       .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
       .then((rows) => {
         orderID = rows[0];
-        console.log("THEN NEW ORDER IS:", orderID);
+        // Create entry in order_items table based on the new order id
+        let orderObj = req.body;
+        for(let item in orderObj){
+          // Get menu item ID based on the title
+          // Create entry in the order_items table
+          knex('menu_items').select('id').where('name', item).limit(1)
+            .then((rows) => {
+              return knex('order_items')
+                .insert({order_id: orderID, menu_item_id: rows[0].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id');
+            }).then((rows) => {
+            })
+            .catch((err) => { 
+              console.error(err); 
+            });
+          }   
       }).catch((err) => { 
         console.error(err); 
       });
-
-    // // Create entry in order_items table based on the new order id
-    // // will have to create a for loop for every individual menu item in the sbopping cart
-    // return knex('order_items').insert({order_id: rows[0], menu_item_id: menuItemID, price: menuItemPrice, quantity: 2})
-
-    // var orderObj = req.body;
-
-    // for(let item in orderObj){
-    //   console.log("Title", item);
-    //   console.log("quantity", orderObj[item].quantity);
-    //   console.log("price", orderObj[item].price);
-    // }
-
-    // var menuItemID = '';
-    // // Get menu item based on the title
-    // var findMenuItemId = knex('menu_items').select('id').where('name',  menu_item).limit(1);
-    // findMenuItemId.then((rows) => {
-    //   if(rows.length) {
-    //     const menuItem = rows[0];
-    //     return Promise.resolve(menuItem);
-    //   }
-    // }).then((menuItem) => {
-    //   menuItemID = menuItem.id;
-    // }).catch((err) => { throw err; });
-
-        
     // // Ajax return    
     // res.json(results);
-
   });
+
   return router;
 }
