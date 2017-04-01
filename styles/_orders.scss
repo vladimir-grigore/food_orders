@@ -42,9 +42,18 @@
 .after-reveal{
   height:400px;
   display:none;
-  padding:1rem;
+
+  .row{
+    margin-top:5rem;
+  }
+
+  p.customer-item-name{
+    font-family:$font-accent;
+  }
 
   p.customer-item-quantity{
-    float:right;
+    font-family:$font-accent;
+    text-align:center;
+    font-weight:500;
   }
 }

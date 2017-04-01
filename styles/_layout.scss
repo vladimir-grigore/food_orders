@@ -1,10 +1,11 @@
 html {
-  font-size:12px;
+  font-size:14px;
 }
 
 body {
   background-color: #fff ;
   font-family:$font-main;
+  font-size:1rem;
 }
 
 .col-centered{
@@ -16,7 +17,7 @@ body {
   display: flex;           /* Magic begins                    */
   justify-content: center; /* Center horizontally             */
   align-items: center;     /* Center vertically               */
-  min-width: 0; 
+  min-width: 0;
 }
 
 header {
