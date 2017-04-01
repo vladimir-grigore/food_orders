@@ -56,15 +56,27 @@ module.exports = (knex) => {
     // TODO: if nothing crashed, res.send();
     // TODO: if any of it did crash, res.status(500).send();
 
-    knex
-    .select('order.id', 'menu.name', 'order_items.quantity')
-    .from('orders')
-    .join('order_items', 'order_items.order_id', 'orders.id')
-    .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
-    .where({ 'order.id': 1})  // hackily chosen to be the order-id in the seed
+    knex('order_items')
+    .join('menu_items', 'menu_item_id', 'menu_items.id')
+    .select('order_items.quantity', 'menu_items.name')
+    .where('order_items.order_id', '2')
+    // .then((rows) => {
+    //     console.log('This is the rows', rows);
+    //     res.status(200).end();
+    // })
+    // .catch((error) => {
+    //   console.log("Error", error)
+    // })
+    // .select('order.id', 'menu.name', 'order_items.quantity')
+    // .from('orders')
+    // .join('order_items', 'order_items.order_id', 'orders.id')
+    // .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
+    // .where({ 'order.id': 1})  // hackily chosen to be the order-id in the seed
+    //88888**************
+
     .then((rows) => {
       // turn rows into a suitable order_items
-      twilio_helper.call(55, rows);
+      twilio_helper.call(2, rows);
       res.status(200).end();
     })
     .catch((error) => {
@@ -72,6 +84,9 @@ module.exports = (knex) => {
       res.status(500).end();
     })
   });
+  // });
+
+  //*******
 
   router.get("/:id", (req, res) => {
     // TODO get all menu_items based on order ID

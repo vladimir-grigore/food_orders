@@ -7,7 +7,6 @@ const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const sass        = require("node-sass-middleware");
 const app         = express();
-const dataHelper = require('./public/scripts/data-helper');
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 
@@ -16,7 +15,7 @@ const loginRoutes    = require("./routes/_login");
 const logoutRoutes   = require("./routes/_logout");
 const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
-const twilioRouter = require('./routes/twilio-router')(dataHelper);
+const twilioRouter = require('./routes/twilio-router');
 const orderRoutes    = require("./routes/_orders");
 const twilio_helper = require('./routes/twilio_helper');
 
@@ -66,7 +65,7 @@ app.get("/", (req, res) => {
 
 
 
-//*****************************************************************
+//*******************************TEXT**********************************
 
 
 app.get('/orderTime', (req, res) => {
@@ -77,7 +76,7 @@ app.post('/orderTime', (req, res) => {
   twilio_helper.text(req.body.time);
   res.redirect('/'); // TODO: better redirect
 })
-//*****************************************************************
+//*************************TEXT****************************************
 
 
 
