@@ -14,7 +14,7 @@ body {
 }
 
 .vertical-align{
-  display: flex;           /* Magic begins                    */
+  display:flex;           /* Magic begins                    */
   justify-content: center; /* Center horizontally             */
   align-items: center;     /* Center vertically               */
   min-width: 0;
@@ -22,7 +22,7 @@ body {
 
 header {
   h1.main-heading {
-    font-size:8rem;
+    font-size:5rem;
     margin-top:8rem;
   }
 }

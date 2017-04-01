@@ -10,7 +10,7 @@ $(() => {
 
   loadMenuItems();
 
-  // Proceed to checkout 
+  // Proceed to checkout
   $("#checkout-btn").on('click', function(event){
     event.preventDefault();
 
@@ -126,7 +126,6 @@ function removeMenuItemFromBasket(title, price) {
     delete orderObject[title];
   }
 }
-});
 
 // Hold information about the order
 var orderObject = {};
