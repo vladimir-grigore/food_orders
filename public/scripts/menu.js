@@ -11,13 +11,25 @@ $(() => {
   loadMenuItems();
 
   function renderMenuItems(menu_items) {
-    $("section .menu-container").empty();
+    $(".menu-container").empty();
     // loops through the menu_items
+    // bundles every 4 menu items in a row
+    $wrappingRow1 = $("<div>").addClass("row");
+    $wrappingRow2 = $("<div>").addClass("row");
+
+    counter = 0;
     for(let item of menu_items) {
       var $item = createMenuElement(item);
-      console.log($item);
-      $(".menu-container").append($item);
+      if (counter < 4) {
+        $wrappingRow1.append($item);
+      } else {
+        $wrappingRow2.append($item);
+      }
+      counter ++;
     }
+
+    $(".menu-container").append($wrappingRow1);
+    $(".menu-container").append($wrappingRow2);
   }
 
   function createMenuElement(item) {
@@ -36,8 +48,8 @@ $(() => {
     let $details = $("<div>").addClass("menu-item-details").appendTo($article);
     let $detailsRow = $("<div>").addClass("row").appendTo($details);
     let $detailsCol9 = $("<div>").addClass("col-sm-9").appendTo($detailsRow);
-    $("<div>").addClass("menu-item-name").text(item.name).appendTo($detailsCol9);
-    $("<div>").addClass("menu-item-desc").text(item.description).appendTo($detailsCol9);
+    $("<p>").addClass("menu-item-name").text(item.name).appendTo($detailsCol9);
+    $("<p>").addClass("menu-item-desc").text(item.description).appendTo($detailsCol9);
     let $detailsCol3 = $("<div>").addClass("col-sm-3").appendTo($detailsRow);
     $("<p>").addClass("menu-item-price").text("$" + item.price).appendTo($detailsCol3);
 
