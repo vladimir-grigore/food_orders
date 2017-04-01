@@ -66,7 +66,7 @@ module.exports = (knex) => {
       // turn rows into a suitable order_items
       twilio_helper.call(55, rows);
       res.status(200).end();
-    }
+    })
     .catch((error) => {
       console.log("everything is tears and regret", error);
       res.status(500).end();
