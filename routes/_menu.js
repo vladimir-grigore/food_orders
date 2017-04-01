@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment  = require('moment-timezone');
 
 module.exports = (knex) => {
 
@@ -31,31 +32,45 @@ module.exports = (knex) => {
     // Temporary
     let payment_option = "in_person";
 
-    var menuItemID = '';
-    var menuItemPrice = '';
-    var findMenuItemIdAndPrice = knex('menu_items').select('id', 'price').where('name',  menu_item).limit(1);
-    findMenuItemIdAndPrice.then((rows) => {
-      if(rows.length) {
-        const menuItem = rows[0];
-        return Promise.resolve(menuItem);
-      }
-    }).then((menuItem) => {
-      menuItemID = menuItem.id;
-      menuItemPrice = menuItem.price;
-    }).catch((err) => { throw err; });
-
+    // Create a new order
+    let orderID;
     // Create entry in orders table
     knex('orders')
       .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
-      .then((rows) => { 
-        // Create entry in order_items table based on the new order id
-        // will have to create a for loop for every individual menu item in the sbopping cart
-        return knex('order_items').insert({order_id: rows[0], menu_item_id: menuItemID, price: menuItemPrice, quantity: 2})
-      }).then((results) => {
-        res.json(results);
+      .then((rows) => {
+        orderID = rows[0];
+        console.log("THEN NEW ORDER IS:", orderID);
       }).catch((err) => { 
         console.error(err); 
       });
+
+    // // Create entry in order_items table based on the new order id
+    // // will have to create a for loop for every individual menu item in the sbopping cart
+    // return knex('order_items').insert({order_id: rows[0], menu_item_id: menuItemID, price: menuItemPrice, quantity: 2})
+
+    // var orderObj = req.body;
+
+    // for(let item in orderObj){
+    //   console.log("Title", item);
+    //   console.log("quantity", orderObj[item].quantity);
+    //   console.log("price", orderObj[item].price);
+    // }
+
+    // var menuItemID = '';
+    // // Get menu item based on the title
+    // var findMenuItemId = knex('menu_items').select('id').where('name',  menu_item).limit(1);
+    // findMenuItemId.then((rows) => {
+    //   if(rows.length) {
+    //     const menuItem = rows[0];
+    //     return Promise.resolve(menuItem);
+    //   }
+    // }).then((menuItem) => {
+    //   menuItemID = menuItem.id;
+    // }).catch((err) => { throw err; });
+
+        
+    // // Ajax return    
+    // res.json(results);
 
   });
   return router;
