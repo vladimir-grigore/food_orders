@@ -14,22 +14,16 @@ $(() => {
     $(".menu-container").empty();
     // loops through the menu_items
     // bundles every 4 menu items in a row
-    $wrappingRow1 = $("<div>").addClass("row");
-    $wrappingRow2 = $("<div>").addClass("row");
-
-    counter = 0;
-    for(let item of menu_items) {
-      var $item = createMenuElement(item);
-      if (counter < 4) {
-        $wrappingRow1.append($item);
-      } else {
-        $wrappingRow2.append($item);
-      }
-      counter ++;
+    var j = menu_items.length, chunk = 4, subset;
+    for (var i=0; i < j; i += chunk) {
+        subset = menu_items.slice(i, i+chunk);
+        $wrappingRow = $("<div>").addClass("row");
+        for(let item of subset){
+          var $item = createMenuElement(item);
+          $wrappingRow.append($item); 
+        }
+        $(".menu-container").append($wrappingRow);
     }
-
-    $(".menu-container").append($wrappingRow1);
-    $(".menu-container").append($wrappingRow2);
   }
 
   function createMenuElement(item) {
