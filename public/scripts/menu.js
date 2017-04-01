@@ -26,6 +26,26 @@ $(() => {
     }
   }
 
+  $(".menu-container").on('click', 'form.quantity-form > button.plus', function(event){
+    event.preventDefault();
+    var $quantityField = $(this).parent().find("input.number-input");
+    var value = Number($quantityField.val());
+    $quantityField.val(value + 1);
+  })
+
+   $(".menu-container").on('click', 'form.quantity-form > button.minus', function(event){
+      event.preventDefault();
+      var $quantityField = $(this).parent().find("input.number-input");
+      var value = Number($quantityField.val());
+      if (value > 0) {
+        $quantityField.val(value - 1);
+      }
+    })
+
+  // Add item to basket
+  function addMenuItemToBasket() {
+  }
+
   function createMenuElement(item) {
 
     let $item = $("<div>").addClass("col-sm-3");
@@ -33,10 +53,10 @@ $(() => {
     let $image = $("<img>").attr("src", item.image_url).attr("alt", "menu-item-1").appendTo($article);
 
     let $orderForm = $("<form>").addClass("form-inline quantity-form").appendTo($article);
-    $("<button>").addClass("btn btn-default")
+    $("<button>").addClass("btn btn-default plus")
     .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true")).appendTo($orderForm);
-    $("<input>").attr("type", "text").addClass("form-control number-input").attr("placeholder", "0").appendTo($orderForm);
-    $("<button>").addClass("btn btn-default")
+    $("<input>").attr("type", "text").addClass("form-control number-input").attr("placeholder", "0").val(0).appendTo($orderForm);
+    $("<button>").addClass("btn btn-default minus")
     .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
 
     let $details = $("<div>").addClass("menu-item-details").appendTo($article);
