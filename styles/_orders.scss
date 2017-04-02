@@ -77,10 +77,18 @@
       border-radius:0;
       border:none;
       text-transform:uppercase;
-      background-color:$color-accent;
+      background-color:black;
       font-weight:500;
       padding:1.35rem;
       color:white;
+
+      &:hover{
+        
+      }
+    }
+
+    button.btn-complete{
+      width:100%;
     }
   }
 }

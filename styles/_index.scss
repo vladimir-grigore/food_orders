@@ -24,19 +24,33 @@ article.menu-item {
 
   form.quantity-form {
     // opacity:0;
+    display:none;
     padding:1rem 0 1rem 0;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top:14.5rem;
+    top:14.8rem;
 
     &:hover{
       opacity:1;
     }
 
     input.number-input{
-      width:4rem;
+      width:3.5rem;
       text-align:center;
+      background-color:white;
+      border:none;
+      border-radius:0;
+      color:black;
+    }
+
+    button{
+      border:none;
+      background-color:transparent;
+
+      &:hover{
+        color:$color-accent;
+      }
     }
   }
 

@@ -90,7 +90,16 @@ $(() => {
     return $item;
   }
 
-  test();
+  // $(".menu-container").on('click', 'form.quantity-form > button.minus';
+
+
+  $(".menu-container").on('mouseover', 'article.menu-item', function(event){
+    $(this).find('form.quantity-form').fadeIn(200);
+  });
+
+  $(".menu-container").on('mouseleave', 'article.menu-item', function(event){
+    $(this).find('form.quantity-form').hide();
+  });
 
 });
 
@@ -120,7 +129,3 @@ function removeMenuItemFromBasket(title, price) {
 
 // Hold information about the order
 var orderObject = {};
-
-$(".menu-container").on('mouseover', 'article.menu-item', function(event){
-  console.log("HOVERHOVER");
-});
