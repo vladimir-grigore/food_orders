@@ -3,18 +3,7 @@
   <body>
     <div class="container">
       <header>
-        <nav>
-          <div class="row">
-            <div class="col-sm-1">
-              <p>Hello, user</p>
-            </div>
-            <div class="col-sm-1 col-sm-offset-10">
-              <form action="/api/logout" method="POST">
-                <input type="submit" value="Logout">
-              </form>
-            </div>
-          </div>
-        </nav>
+        <%- include partials/_nav %>
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2 text-center">
             <h1 class="main-heading">HIPTALIAN</h1>
@@ -46,5 +35,20 @@
         </div>
       </div>
     </footer>
+
+    <script>
+
+
+      $(function(){
+        $(".menu-item").hover(function(){
+          $(this).find(".quantity-form").fadeIn();
+        }
+        ,function(){
+            $(this).find(".quantity-form").fadeOut();
+        }
+       );
+    });
+
+    </script>
   </body>
 </html>

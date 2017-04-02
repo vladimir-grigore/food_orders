@@ -27,5 +27,18 @@ $(() => {
   //     // TODO rediret to the GET /admin/orders/:id route
   //   );
   // });
-
+  
+  toggleCheckout();
 });
+
+function toggleCheckout(){
+  $('.before-slide').on('click', function(){
+    $(this).siblings('.after-reveal').slideToggle("400");
+    var collapsed = $(this).siblings().find('i').hasClass('fa-caret-down');
+
+    $('.before-slide').siblings().find('i').removeClass('fa-caret-up');
+    $('.before-slide').siblings().find('i').addClass('fa-caret-down');
+    if(collapsed)
+        $(this).siblings().find('i').toggleClass('fa-caret-down fa-caret-up')
+  });
+}

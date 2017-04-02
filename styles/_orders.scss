@@ -61,14 +61,16 @@
   .estimated-time-form{
     margin:1.5rem 0 2.5rem 0;
 
+    .input-group{
       input{
         border-radius:0;
         background-color:transparent;
         border:1px solid #323232;
-        width:30rem;
+        width:46rem;
         background-color:white;
         padding:2rem;
       }
+    }
 
     button{
       display:inline-block;
