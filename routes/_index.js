@@ -42,7 +42,7 @@ module.exports = (knex) => {
             .insert({order_id: orderID, menu_item_id: orderObj[item].id, price: orderObj[item].price, quantity: orderObj[item].quantity}, 'id')
             .then((rows) => {})
             .catch((err) => { 
-              console.error(err); 
+              return console.error(err);
             });
         }
         res.json(orderID);

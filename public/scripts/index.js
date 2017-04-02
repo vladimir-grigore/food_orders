@@ -30,7 +30,6 @@ $(() => {
     let displayTotal = "$" + total;
     $("footer.navbar-fixed-bottom h4").data("total", total);
     $("footer.navbar-fixed-bottom h4").text(displayTotal);
-    console.log("YOUR TOTAL IS NOW:", total);
   }
 
   function renderMenuItems(menu_items) {

@@ -36,7 +36,6 @@ $(() => {
     */
     var ordersObject = {};
     for(let order of pending_orders) {
-      // console.log("_-_-_-", order)
       if (!ordersObject[order.order_id]){
         ordersObject[order.order_id] = {};
 
@@ -47,7 +46,7 @@ $(() => {
           "quantity": order.quantity
         }
     }
-    // console.log("-----", ordersObject)
+
     $("section.orders-container > div.row").empty();
     let orderNumber = 0;
     for (let index in ordersObject){
