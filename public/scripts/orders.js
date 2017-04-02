@@ -10,6 +10,18 @@ $(() => {
     });
   }
 
+  function getTimeOfOrder(order_id) {
+    let timeAgo = '';
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        method: "GET",
+        url: `/api/orders/${order_id}`
+      }).done((time) => {
+        resolve(time[0].placed_at)
+      });
+    })
+  }
+
   function loadPendingOrders(pending_orders){
      /*
     Create object to hold each order
@@ -24,8 +36,10 @@ $(() => {
     */
     var ordersObject = {};
     for(let order of pending_orders) {
+      // console.log("_-_-_-", order)
       if (!ordersObject[order.order_id]){
         ordersObject[order.order_id] = {};
+
       }
       ordersObject[order.order_id][order.id] =  {
           "image_url": order.image_url,
@@ -33,16 +47,17 @@ $(() => {
           "quantity": order.quantity
         } 
     }
-    console.log("-----", ordersObject)
-
+    // console.log("-----", ordersObject)
     $("section.orders-container > div.row").empty();
     for (let index in ordersObject){
-      populateOrder(ordersObject[index]).appendTo("section.orders-container > div.row");
+      getTimeOfOrder(index).then((time) => {
+        populateOrder(ordersObject[index], time).appendTo("section.orders-container > div.row");
+      });
     }
   }
   
   // Create entry for each order
-  function populateOrder(orders){
+  function populateOrder(orders, time){
     let totalQuantity = 0;
     for(let item in orders){
       totalQuantity += orders[item].quantity;
@@ -56,7 +71,7 @@ $(() => {
     let $orderTitle = $("<div>").addClass("col-sm-6 col-sm-offset-1 text-center").appendTo($verticalAlign);
     $("<p>").addClass("customer-order").text("customer order #1").appendTo($orderTitle);
     let $col3 = $("<div>").addClass("col-sm-3").appendTo($verticalAlign);
-    $("<p>").addClass("time").text("8 MINUTES AGO").appendTo($col3);
+    $("<p>").addClass("time").text(time).appendTo($col3);
 
     let $afterReveal = $("<div>").addClass("after-reveal").appendTo($order);
     
