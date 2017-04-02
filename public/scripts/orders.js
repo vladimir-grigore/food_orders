@@ -28,7 +28,7 @@ $(() => {
     Structure is: {order_id: {
       id: {
         image_url: "/img/image-2.png",
-        name: "Crostini", 
+        name: "Crostini",
         quantity: 2
       }
     }}
@@ -45,7 +45,7 @@ $(() => {
           "image_url": order.image_url,
           "name": order.name,
           "quantity": order.quantity
-        } 
+        }
     }
     // console.log("-----", ordersObject)
     $("section.orders-container > div.row").empty();
@@ -55,7 +55,7 @@ $(() => {
       });
     }
   }
-  
+
   // Create entry for each order
   function populateOrder(orders, time){
     let totalQuantity = 0;
@@ -74,7 +74,7 @@ $(() => {
     $("<p>").addClass("time").text(time).appendTo($col3);
 
     let $afterReveal = $("<div>").addClass("after-reveal").appendTo($order);
-    
+
     // Create entry for every item in the order
     for (let entry in orders){
       createOrderItem(orders[entry]).appendTo($afterReveal);
@@ -89,7 +89,7 @@ $(() => {
     .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
     $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
     $("<button>").attr("type", "submit").addClass("btn btn-complete").text("Order complete").appendTo($form);
-    
+
     let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
     $("<i>").addClass("fa fa-caret-down down-arrow").attr("aria-hidden", "true").appendTo($hideArrow);
 
@@ -103,7 +103,7 @@ $(() => {
     $col2 = $("<div>").addClass("col-sm-4").appendTo($orderItem);
     $("<p>").addClass("customer-item-name").text(item.name).appendTo($col2);
     $col3 = $("<div>").addClass("col-sm-4").appendTo($orderItem);
-    $("<p>").addClass("customer-item-quantity").text("x" + item.quantity).appendTo($col3);    
+    $("<p>").addClass("customer-item-quantity").text("x" + item.quantity).appendTo($col3);
 
     return $orderItem;
   }
@@ -134,5 +134,13 @@ $(() => {
     }
   })
 
-});
+    //
+    //
+    // $( "form.estimated-time-form" ).on( "mouseover", function() {
+    //   // $('.counter').text('140');
+    //   console.log("IT WORKS");
+    // });
 
+
+
+});
