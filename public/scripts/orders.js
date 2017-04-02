@@ -6,13 +6,29 @@ $(() => {
     method: "GET",
     url: "/api/orders"
   }).done((pending_orders) => {
-    for(order of pending_orders) {
-      console.log("====", order);
-
-      // $("<div>").text(item.id).appendTo($("body")); // will use the .data('id', item.id) jQuery function
-      // $("<div>").text(item.payment_option).appendTo($("body"));
-      // $("<div>").text(item.placed_at).appendTo($("body"));
+    /*
+    Create object to hold each order
+    Structure is: {order_id: {
+      id: {
+        image_url: "/img/image-2.png",
+        name: "Crostini", 
+        quantity: 2
+      }
+    }}
+    To get image: ordersObject.order_id.id.image_url
+    */
+    var ordersObject = {};
+    for(let order of pending_orders) {
+      if (!ordersObject[order.order_id]){
+        ordersObject[order.order_id] = {};
+      }
+      ordersObject[order.order_id][order.id] =  {
+          "image_url": order.image_url,
+          "name": order.name,
+          "quantity": order.quantity
+        } 
     }
+    console.log("-----", ordersObject)
   });
 
   function populateOrder() {
