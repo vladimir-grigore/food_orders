@@ -9,7 +9,7 @@ module.exports = (knex) => {
     console.log("Above the knex statement");
     console.log("req.params.id", req.params.id)
     knex('order_items')
-    .select('order_items.quantity', 'order_items.price', 'menu_items.name', 'menu_items.image_url')
+    .select('order_items.quantity', 'order_items.price', 'order_items.menu_item_id', 'menu_items.name', 'menu_items.image_url')
     .join('menu_items', 'menu_item_id', 'menu_items.id')
     .where('order_items.order_id', req.params.id)
       .then((results) => {

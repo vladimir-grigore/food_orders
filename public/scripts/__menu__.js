@@ -48,7 +48,7 @@ $(() => {
     var menuItemId = $(this).parents("article.menu-item").data("id");
 
     var $quantityField = $(this).parent().find("input.number-input");
-    var value = Number($quantityField.val());
+    var value = Number($quantityField.v
     $quantityField.val(value + 1);
     addMenuItemToBasket(menuName, Number(menuPrice), Number(menuItemId));
   })
