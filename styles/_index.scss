@@ -1,5 +1,6 @@
 section.menu-container{
   margin-top:5rem;
+  padding-bottom:10rem;
 
   >.row{
     padding-top:4rem;
@@ -7,6 +8,7 @@ section.menu-container{
 }
 
 section.menu-category-container{
+
   h4{
     text-transform:uppercase;
     margin-bottom:2rem;
@@ -21,20 +23,34 @@ article.menu-item {
   }
 
   form.quantity-form {
-    opacity:0;
+    // opacity:0;
+    display:none;
     padding:1rem 0 1rem 0;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top:21.5rem;
+    top:14.8rem;
 
     &:hover{
       opacity:1;
     }
 
     input.number-input{
-      width:4rem;
+      width:3.5rem;
       text-align:center;
+      background-color:white;
+      border:none;
+      border-radius:0;
+      color:black;
+    }
+
+    button{
+      border:none;
+      background-color:transparent;
+
+      &:hover{
+        color:$color-accent;
+      }
     }
   }
 
@@ -51,7 +67,7 @@ article.menu-item {
     }
     p.menu-item-price{
       float:right;
-      font-size:1.7rem;
+      font-size:1.3rem;
       font-weight:500;
       color:$color-accent;
     }

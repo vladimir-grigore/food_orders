@@ -90,6 +90,17 @@ $(() => {
     return $item;
   }
 
+  // $(".menu-container").on('click', 'form.quantity-form > button.minus';
+
+
+  $(".menu-container").on('mouseover', 'article.menu-item', function(event){
+    $(this).find('form.quantity-form').fadeIn(200);
+  });
+
+  $(".menu-container").on('mouseleave', 'article.menu-item', function(event){
+    $(this).find('form.quantity-form').hide();
+  });
+
 });
 
 // Add item to basket

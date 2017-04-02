@@ -1,7 +1,7 @@
 .orders-container{
   margin:6rem 0 10rem 0;
   background-color:$color-bg;
-  border:3px solid #323232;
+  border:1px solid #323232;
 }
 
 .order-row{
@@ -61,24 +61,34 @@
   .estimated-time-form{
     margin:1.5rem 0 2.5rem 0;
 
+    .input-group{
       input{
         border-radius:0;
         background-color:transparent;
         border:1px solid #323232;
-        width:30rem;
+        width:46rem;
         background-color:white;
         padding:2rem;
       }
+    }
 
     button{
       display:inline-block;
       border-radius:0;
       border:none;
       text-transform:uppercase;
-      background-color:$color-accent;
+      background-color:black;
       font-weight:500;
       padding:1.35rem;
       color:white;
+
+      &:hover{
+        
+      }
+    }
+
+    button.btn-complete{
+      width:100%;
     }
   }
 }
