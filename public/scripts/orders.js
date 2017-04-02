@@ -49,15 +49,17 @@ $(() => {
     }
     // console.log("-----", ordersObject)
     $("section.orders-container > div.row").empty();
+    let orderNumber = 0;
     for (let index in ordersObject){
       getTimeOfOrder(index).then((time) => {
-        populateOrder(ordersObject[index], time).appendTo("section.orders-container > div.row");
+        orderNumber ++;
+        populateOrder(ordersObject[index], time, orderNumber).appendTo("section.orders-container > div.row");
       });
     }
   }
   
   // Create entry for each order
-  function populateOrder(orders, time){
+  function populateOrder(orders, time, orderNumber){
     let totalQuantity = 0;
     for(let item in orders){
       totalQuantity += orders[item].quantity;
@@ -69,7 +71,7 @@ $(() => {
     let $col2 = $("<div>").addClass("col-sm-2").appendTo($verticalAlign);
     $("<p>").addClass("items").text(totalQuantity + " ITEMS").appendTo($col2);
     let $orderTitle = $("<div>").addClass("col-sm-6 col-sm-offset-1 text-center").appendTo($verticalAlign);
-    $("<p>").addClass("customer-order").text("customer order #1").appendTo($orderTitle);
+    $("<p>").addClass("customer-order").text("customer order #" + orderNumber).appendTo($orderTitle);
     let $col3 = $("<div>").addClass("col-sm-3").appendTo($verticalAlign);
     $("<p>").addClass("time").text(time).appendTo($col3);
 
