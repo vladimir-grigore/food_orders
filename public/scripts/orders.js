@@ -89,7 +89,7 @@ $(() => {
     let $input = $("<div>").addClass("input-group").appendTo($formGroup);
     $("<input>").attr("type", "text").addClass("form-control")
     .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
-    $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
+    $("<button>").attr("type", "submit").addClass("btn btn-time-submit").text("Submit").appendTo($form);
     $("<button>").attr("type", "submit").addClass("btn btn-complete").text("Order complete").appendTo($form);
 
     let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
@@ -136,13 +136,16 @@ $(() => {
     }
   })
 
-    //
-    //
-    // $( "form.estimated-time-form" ).on( "mouseover", function() {
-    //   // $('.counter').text('140');
-    //   console.log("IT WORKS");
-    // });
+  // Function to swap submit time button to complete order button
+  $('.orders-container' ).on('submit', 'form.estimated-time-form', function(event) {
+    event.preventDefault();
 
+    let btnTimeSubmit = $(this).find('button.btn-time-submit, div.form-group');
+    let btnComplete = $(this).find('button.btn-complete');
 
-
+    $(btnTimeSubmit).fadeOut(300, function(){
+      $(this).replaceWith(btnComplete);
+      $(btnComplete).fadeIn(600);
+    });
+  });
 });

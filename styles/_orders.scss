@@ -83,12 +83,13 @@
       color:white;
 
       &:hover{
-        
+
       }
     }
 
     button.btn-complete{
       width:100%;
+      display:none;
     }
   }
 }
