@@ -30,12 +30,11 @@ $(() => {
     }
     console.log("-----", ordersObject)
 
+    $("section.orders-container > div.row").empty();
     for (let index in ordersObject){
-      $("section.orders-container").empty();
-      let order = populateOrder(ordersObject[index]);
-      $("section.orders-container").append(order);
-
+      populateOrder(ordersObject[index]).appendTo("section.orders-container > div.row");
       console.log("_-_-", ordersObject[index])
+
       for (let entry in ordersObject[index]){
         // createOrderItem(ordersObject[index][entry]);
         console.log("####", ordersObject[index][entry])
@@ -50,8 +49,7 @@ $(() => {
       totalQuantity += orders[item].quantity;
     }
 
-    let $orderContainer = $("<div>").addClass("row");
-    let $order = $("<div>").addClass("col-sm-8 col-sm-offset-2 order-row").appendTo($orderContainer);
+    let $order = $("<div>").addClass("col-sm-8 col-sm-offset-2 order-row");
     let $beforeSlide = $("<div>").addClass("before-slide").appendTo($order);
     let $verticalAlign = $("<div>").addClass("vertical-align").appendTo($beforeSlide);
     let $col2 = $("<div>").addClass("col-sm-2").appendTo($verticalAlign);
@@ -68,7 +66,8 @@ $(() => {
     let $timeEstimateRow = $("<div>").addClass("row").appendTo($afterReveal);
     let $col4 = $("<div>").addClass("col-sm-12 text-center").appendTo($timeEstimateRow);
     let $form = $("<form>").addClass("estimated-time-form form-inline").appendTo($col4);
-    let $input = $("<div>").addClass("input-group").appendTo($form);
+    let $formGroup = $("<div>").addClass("form-group").appendTo($form);
+    let $input = $("<div>").addClass("input-group").appendTo($formGroup);
     $("<input>").attr("type", "text").addClass("form-control")
     .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
     $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
@@ -76,7 +75,7 @@ $(() => {
     let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
     $("<i>").addClass("fa fa-caret-down down-arrow").attr("aria-hidden", "true").appendTo($hideArrow);
 
-    return $orderContainer;
+    return $order;
   }
 
   function createOrderItem(item) {
@@ -103,18 +102,17 @@ $(() => {
   //     // TODO rediret to the GET /admin/orders/:id route
   //   );
   // });
-  
-  toggleCheckout();
-});
-
-function toggleCheckout(){
-  $('.before-slide').on('click', function(){
+  $('.orders-container').on('click','div.order-row > div.before-slide', function(event){
+    event.preventDefault();
     $(this).siblings('.after-reveal').slideToggle("400");
     var collapsed = $(this).siblings().find('i').hasClass('fa-caret-down');
 
     $('.before-slide').siblings().find('i').removeClass('fa-caret-up');
     $('.before-slide').siblings().find('i').addClass('fa-caret-down');
-    if(collapsed)
-        $(this).siblings().find('i').toggleClass('fa-caret-down fa-caret-up')
-  });
-}
+    if(collapsed){
+      $(this).siblings().find('i').toggleClass('fa-caret-down fa-caret-up');
+    }
+  })
+
+});
+
