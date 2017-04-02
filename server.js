@@ -15,7 +15,6 @@ const loginRoutes    = require("./routes/_login");
 const logoutRoutes   = require("./routes/_logout");
 // const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
-const twilioRouter = require('./routes/twilio-router');
 const orderRoutes    = require("./routes/_orders");
 
 const twilio_helper = require('./routes/twilio_helper');
@@ -55,8 +54,6 @@ app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
 // app.use("/api/menu", menuRoutes(knex));
 app.use("/api/checkout", checkoutRoutes(knex));
-
-app.use('/twilio', twilioRouter);
 
 app.use("/api/orders", orderRoutes(knex));
 app.use("/api/index", indexRoutes(knex));

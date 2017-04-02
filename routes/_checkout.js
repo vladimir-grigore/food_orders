@@ -6,12 +6,19 @@ const twilio_helper = require('./twilio_helper');
 
 module.exports = (knex) => {
   router.get("/:id", (req, res) => {
-    knex
-      .select("*")
-      .from("orders")
+    console.log("Above the knex statement");
+    console.log("req.params.id", req.params.id)
+    knex('order_items')
+    .select('order_items.quantity', 'order_items.price', 'menu_items.name', 'menu_items.image_url')
+    .join('menu_items', 'menu_item_id', 'menu_items.id')
+    .where('order_items.order_id', req.params.id)
       .then((results) => {
+        console.log('THESE ARE THE RESULTS', results);
         res.json(results);
-    });
+    }).catch((error) => {
+      console.log("everything is tears and regret", error);
+      res.status(500).end();
+    })
   });
 
 
@@ -51,7 +58,7 @@ module.exports = (knex) => {
 
 
   router.post("/:id", (req, res) => {
-    console.log("posted to orders.  body:", req.body);
+    console.log("posted to orders.  body:", req.params.id);
 
     // TODO: get our (menu_item_id, quantity) pairs out of the req
     // TODO: try to create a new order in the DB
@@ -66,7 +73,7 @@ module.exports = (knex) => {
     knex('order_items')
     .join('menu_items', 'menu_item_id', 'menu_items.id')
     .select('order_items.quantity', 'menu_items.name')
-    .where('order_items.order_id', '2')
+    .where('order_items.order_id', req.params.id)
     // .then((rows) => {
     //     console.log('This is the rows', rows);
     //     res.status(200).end();
@@ -83,7 +90,7 @@ module.exports = (knex) => {
 
     .then((rows) => {
       // turn rows into a suitable order_items
-      twilio_helper.call(2, rows);
+      twilio_helper.call(req.params.id, rows);
       res.status(200).end();
     })
     .catch((error) => {
