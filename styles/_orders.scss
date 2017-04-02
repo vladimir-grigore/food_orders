@@ -1,7 +1,7 @@
 .orders-container{
   margin:6rem 0 10rem 0;
   background-color:$color-bg;
-  border:3px solid #323232;
+  border:1px solid #323232;
 }
 
 .order-row{
@@ -77,10 +77,18 @@
       border-radius:0;
       border:none;
       text-transform:uppercase;
-      background-color:$color-accent;
+      background-color:black;
       font-weight:500;
       padding:1.35rem;
       color:white;
+
+      &:hover{
+        
+      }
+    }
+
+    button.btn-complete{
+      width:100%;
     }
   }
 }
