@@ -1,12 +1,17 @@
 $(() => {
+  loadPage();
 
-  // TODO wrap get call in a method
+  function loadPage(){
+    $.ajax({
+      method: "GET",
+      url: "/api/orders"
+    }).done((pending_orders) => {
+      loadPendingOrders(pending_orders);
+    });
+  }
 
-  $.ajax({
-    method: "GET",
-    url: "/api/orders"
-  }).done((pending_orders) => {
-    /*
+  function loadPendingOrders(pending_orders){
+     /*
     Create object to hold each order
     Structure is: {order_id: {
       id: {
@@ -33,16 +38,10 @@ $(() => {
     $("section.orders-container > div.row").empty();
     for (let index in ordersObject){
       populateOrder(ordersObject[index]).appendTo("section.orders-container > div.row");
-      console.log("_-_-", ordersObject[index])
-
-      for (let entry in ordersObject[index]){
-        // createOrderItem(ordersObject[index][entry]);
-        console.log("####", ordersObject[index][entry])
-      }
     }
-    
-  });
-
+  }
+  
+  // Create entry for each order
   function populateOrder(orders){
     let totalQuantity = 0;
     for(let item in orders){
@@ -60,9 +59,12 @@ $(() => {
     $("<p>").addClass("time").text("8 MINUTES AGO").appendTo($col3);
 
     let $afterReveal = $("<div>").addClass("after-reveal").appendTo($order);
+    
+    // Create entry for every item in the order
     for (let entry in orders){
       createOrderItem(orders[entry]).appendTo($afterReveal);
     }
+
     let $timeEstimateRow = $("<div>").addClass("row").appendTo($afterReveal);
     let $col4 = $("<div>").addClass("col-sm-12 text-center").appendTo($timeEstimateRow);
     let $form = $("<form>").addClass("estimated-time-form form-inline").appendTo($col4);
@@ -102,6 +104,8 @@ $(() => {
   //     // TODO rediret to the GET /admin/orders/:id route
   //   );
   // });
+
+  // Expand the orders container
   $('.orders-container').on('click','div.order-row > div.before-slide', function(event){
     event.preventDefault();
     $(this).siblings('.after-reveal').slideToggle("400");
