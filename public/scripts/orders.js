@@ -15,6 +15,22 @@ $(() => {
     }
   });
 
+  function populateOrder() {
+
+  }
+
+  function createOrderItem(item) {
+    $orderItem = $("<div>").addClass("row vertical-align text-center");
+    $col1 = $("<div>").addClass("col-sm-4").appendTo($orderItem);
+    $("<img>").addClass("customer-item-img").attr("src", item.image_url).attr("alt", "menu-item-1").appendTo($col1);
+    $col2 = $("<div>").addClass("col-sm-4").appendTo($orderItem);
+    $("<p>").addClass("customer-item-name").text(item.name).appendTo($col2);
+    $col3 = $("<div>").addClass("col-sm-4").appendTo($orderItem);
+    $("<p>").addClass("customer-item-quantity").text("x" + item.quantity).appendTo($col3);    
+
+    return $orderItem;
+  }
+
   // $('MENU_ITEM').on('click', function(event){
   //   event.preventDefault();
   //   order_id = get order ID from data attribute
