@@ -25,6 +25,7 @@ $(() => {
   });
 
   function updateTotal(price) {
+    // TODO try to get rid of the data attribute
     let total = $("footer.navbar-fixed-bottom h4").data("total");
     total += price;
     let displayTotal = "$" + total;

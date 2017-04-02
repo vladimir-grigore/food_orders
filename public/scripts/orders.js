@@ -11,15 +11,22 @@ $(() => {
   }
 
   function getTimeOfOrder(order_id) {
-    let timeAgo = '';
     return new Promise((resolve, reject) => {
       $.ajax({
         method: "GET",
-        url: `/api/orders/${order_id}`
+        url: `/api/orders/time/${order_id}`
       }).done((time) => {
         resolve(time[0].placed_at)
       });
     })
+  }
+
+  function addTimeEstimate(time_estimate, order_id){
+    $.ajax({
+      method: "POST",
+      url: `/api/orders/estimate/${order_id}`,
+      data: {time: time_estimate}
+    }).done();
   }
 
   function loadPendingOrders(pending_orders){
@@ -52,13 +59,13 @@ $(() => {
     for (let index in ordersObject){
       getTimeOfOrder(index).then((time) => {
         orderNumber ++;
-        populateOrder(ordersObject[index], time, orderNumber).appendTo("section.orders-container > div.row");
+        populateOrder(ordersObject[index], time, orderNumber, index).appendTo("section.orders-container > div.row");
       });
     }
   }
 
   // Create entry for each order
-  function populateOrder(orders, time, orderNumber){
+  function populateOrder(orders, time, orderNumber, order_id){
     let totalQuantity = 0;
     for(let item in orders){
       totalQuantity += orders[item].quantity;
@@ -83,7 +90,7 @@ $(() => {
 
     let $timeEstimateRow = $("<div>").addClass("row").appendTo($afterReveal);
     let $col4 = $("<div>").addClass("col-sm-12 text-center").appendTo($timeEstimateRow);
-    let $form = $("<form>").addClass("estimated-time-form form-inline").appendTo($col4);
+    let $form = $("<form>").addClass("estimated-time-form form-inline").data("order_id", order_id).appendTo($col4);
     let $formGroup = $("<div>").addClass("form-group").appendTo($form);
     let $input = $("<div>").addClass("input-group").appendTo($formGroup);
     $("<input>").attr("type", "text").addClass("form-control")
@@ -138,13 +145,19 @@ $(() => {
   // Function to swap submit time button to complete order button
   $('.orders-container' ).on('submit', 'form.estimated-time-form', function(event) {
     event.preventDefault();
-
     let btnTimeSubmit = $(this).find('button.btn-time-submit, div.form-group');
     let btnComplete = $(this).find('button.btn-complete');
+    
+    let order_id = $(this).data("order_id");
+    let time_estimate = $(this).find("#estimated-time-input").val();
 
-    $(btnTimeSubmit).fadeOut(300, function(){
-      $(this).replaceWith(btnComplete);
-      $(btnComplete).fadeIn(600);
-    });
+    if (Number(time_estimate)){
+      addTimeEstimate(time_estimate, order_id);
+      $(btnTimeSubmit).fadeOut(300, function(){
+        $(this).replaceWith(btnComplete);
+        $(btnComplete).fadeIn(600);
+      });
+    }
+
   });
 });
