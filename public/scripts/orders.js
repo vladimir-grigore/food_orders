@@ -1,12 +1,29 @@
 $(() => {
+  loadPage();
 
-  // TODO wrap get call in a method
+  function loadPage(){
+    $.ajax({
+      method: "GET",
+      url: "/api/orders"
+    }).done((pending_orders) => {
+      loadPendingOrders(pending_orders);
+    });
+  }
 
-  $.ajax({
-    method: "GET",
-    url: "/api/orders"
-  }).done((pending_orders) => {
-    /*
+  function getTimeOfOrder(order_id) {
+    let timeAgo = '';
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        method: "GET",
+        url: `/api/orders/${order_id}`
+      }).done((time) => {
+        resolve(time[0].placed_at)
+      });
+    })
+  }
+
+  function loadPendingOrders(pending_orders){
+     /*
     Create object to hold each order
     Structure is: {order_id: {
       id: {
@@ -19,8 +36,10 @@ $(() => {
     */
     var ordersObject = {};
     for(let order of pending_orders) {
+      // console.log("_-_-_-", order)
       if (!ordersObject[order.order_id]){
         ordersObject[order.order_id] = {};
+
       }
       ordersObject[order.order_id][order.id] =  {
           "image_url": order.image_url,
@@ -28,22 +47,17 @@ $(() => {
           "quantity": order.quantity
         } 
     }
-    console.log("-----", ordersObject)
-
+    // console.log("-----", ordersObject)
     $("section.orders-container > div.row").empty();
     for (let index in ordersObject){
-      populateOrder(ordersObject[index]).appendTo("section.orders-container > div.row");
-      console.log("_-_-", ordersObject[index])
-
-      for (let entry in ordersObject[index]){
-        // createOrderItem(ordersObject[index][entry]);
-        console.log("####", ordersObject[index][entry])
-      }
+      getTimeOfOrder(index).then((time) => {
+        populateOrder(ordersObject[index], time).appendTo("section.orders-container > div.row");
+      });
     }
-    
-  });
-
-  function populateOrder(orders){
+  }
+  
+  // Create entry for each order
+  function populateOrder(orders, time){
     let totalQuantity = 0;
     for(let item in orders){
       totalQuantity += orders[item].quantity;
@@ -57,12 +71,15 @@ $(() => {
     let $orderTitle = $("<div>").addClass("col-sm-6 col-sm-offset-1 text-center").appendTo($verticalAlign);
     $("<p>").addClass("customer-order").text("customer order #1").appendTo($orderTitle);
     let $col3 = $("<div>").addClass("col-sm-3").appendTo($verticalAlign);
-    $("<p>").addClass("time").text("8 MINUTES AGO").appendTo($col3);
+    $("<p>").addClass("time").text(time).appendTo($col3);
 
     let $afterReveal = $("<div>").addClass("after-reveal").appendTo($order);
+    
+    // Create entry for every item in the order
     for (let entry in orders){
       createOrderItem(orders[entry]).appendTo($afterReveal);
     }
+
     let $timeEstimateRow = $("<div>").addClass("row").appendTo($afterReveal);
     let $col4 = $("<div>").addClass("col-sm-12 text-center").appendTo($timeEstimateRow);
     let $form = $("<form>").addClass("estimated-time-form form-inline").appendTo($col4);
@@ -71,7 +88,8 @@ $(() => {
     $("<input>").attr("type", "text").addClass("form-control")
     .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
     $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
- 
+    $("<button>").attr("type", "submit").addClass("btn btn-complete").text("Order complete").appendTo($form);
+    
     let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
     $("<i>").addClass("fa fa-caret-down down-arrow").attr("aria-hidden", "true").appendTo($hideArrow);
 
@@ -102,6 +120,8 @@ $(() => {
   //     // TODO rediret to the GET /admin/orders/:id route
   //   );
   // });
+
+  // Expand the orders container
   $('.orders-container').on('click','div.order-row > div.before-slide', function(event){
     event.preventDefault();
     $(this).siblings('.after-reveal').slideToggle("400");
