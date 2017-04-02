@@ -90,7 +90,7 @@ $(() => {
     return $item;
   }
 
-  hoverForm();
+  test();
 
 });
 
@@ -121,9 +121,6 @@ function removeMenuItemFromBasket(title, price) {
 // Hold information about the order
 var orderObject = {};
 
-// Function to show quantity form on hover
-// function hoverForm(){
-//   $(".menu-item").hover(function(){
-//     $(this).find(".quantity-form").fadeIn();
-//   }
-// }
+$(".menu-container").on('mouseover', 'article.menu-item', function(event){
+  console.log("HOVERHOVER");
+});

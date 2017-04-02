@@ -38,16 +38,15 @@
 
     <script>
 
+      $( document ).ready(function() {
+        $('article.quantity-form').hide();
 
-      $(function(){
-        $(".menu-item").hover(function(){
-          $(this).find(".quantity-form").fadeIn();
-        }
-        ,function(){
-            $(this).find(".quantity-form").fadeOut();
-        }
-       );
-    });
+        $('.menu-item').hover(function () {
+            $('.quantity-form').toggle();
+          }
+        );
+      });
+
 
     </script>
   </body>

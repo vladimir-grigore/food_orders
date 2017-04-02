@@ -22,7 +22,11 @@ body {
 
 header {
   h1.main-heading {
-    font-size:5rem;
+    font-family:$font-accent;
+    font-size:4rem;
     margin-top:8rem;
+    background-color:#323232;
+    color:white;
+    padding:1rem;
   }
 }
