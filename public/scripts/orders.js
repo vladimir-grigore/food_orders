@@ -88,7 +88,8 @@ $(() => {
     $("<input>").attr("type", "text").addClass("form-control")
     .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
     $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
- 
+    $("<button>").attr("type", "submit").addClass("btn btn-complete").text("Order complete").appendTo($form);
+    
     let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
     $("<i>").addClass("fa fa-caret-down down-arrow").attr("aria-hidden", "true").appendTo($hideArrow);
 
