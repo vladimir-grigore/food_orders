@@ -159,5 +159,12 @@ $(() => {
       });
     }
 
+    // close row aftr delay AND THEN lower opacity
+    var that = $(this);
+    setTimeout(function(){
+      $(that).parents('.order-row').find('div.before-slide').trigger('click');
+        $(that).parents('.order-row').animate({'opacity':'0.5'}, 500);
+    }, 1000);
   });
+
 });
