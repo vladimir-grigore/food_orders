@@ -29,10 +29,54 @@ $(() => {
         } 
     }
     console.log("-----", ordersObject)
+
+    for (let index in ordersObject){
+      $("section.orders-container").empty();
+      let order = populateOrder(ordersObject[index]);
+      $("section.orders-container").append(order);
+
+      console.log("_-_-", ordersObject[index])
+      for (let entry in ordersObject[index]){
+        // createOrderItem(ordersObject[index][entry]);
+        console.log("####", ordersObject[index][entry])
+      }
+    }
+    
   });
 
-  function populateOrder() {
+  function populateOrder(orders){
+    let totalQuantity = 0;
+    for(let item in orders){
+      totalQuantity += orders[item].quantity;
+    }
 
+    let $orderContainer = $("<div>").addClass("row");
+    let $order = $("<div>").addClass("col-sm-8 col-sm-offset-2 order-row").appendTo($orderContainer);
+    let $beforeSlide = $("<div>").addClass("before-slide").appendTo($order);
+    let $verticalAlign = $("<div>").addClass("vertical-align").appendTo($beforeSlide);
+    let $col2 = $("<div>").addClass("col-sm-2").appendTo($verticalAlign);
+    $("<p>").addClass("items").text(totalQuantity + " ITEMS").appendTo($col2);
+    let $orderTitle = $("<div>").addClass("col-sm-6 col-sm-offset-1 text-center").appendTo($verticalAlign);
+    $("<p>").addClass("customer-order").text("customer order #1").appendTo($orderTitle);
+    let $col3 = $("<div>").addClass("col-sm-3").appendTo($verticalAlign);
+    $("<p>").addClass("time").text("8 MINUTES AGO").appendTo($col3);
+
+    let $afterReveal = $("<div>").addClass("after-reveal").appendTo($order);
+    for (let entry in orders){
+      createOrderItem(orders[entry]).appendTo($afterReveal);
+    }
+    let $timeEstimateRow = $("<div>").addClass("row").appendTo($afterReveal);
+    let $col4 = $("<div>").addClass("col-sm-12 text-center").appendTo($timeEstimateRow);
+    let $form = $("<form>").addClass("estimated-time-form form-inline").appendTo($col4);
+    let $input = $("<div>").addClass("input-group").appendTo($form);
+    $("<input>").attr("type", "text").addClass("form-control")
+    .attr("id", "estimated-time-input").attr("placeholder", "Estimated time (minutes)").appendTo($input);
+    $("<button>").attr("type", "submit").addClass("btn").text("Submit").appendTo($form);
+ 
+    let $hideArrow = $("<div>").addClass("col-sm-2 col-sm-offset-5 text-center").appendTo($order);
+    $("<i>").addClass("fa fa-caret-down down-arrow").attr("aria-hidden", "true").appendTo($hideArrow);
+
+    return $orderContainer;
   }
 
   function createOrderItem(item) {
