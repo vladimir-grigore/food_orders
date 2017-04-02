@@ -3,19 +3,7 @@
   <body>
     <div class="container">
       <header>
-        <nav>
-          <div class="row">
-            <div class="col-sm-1">
-              <p>Hello, user</p>
-            </div>
-            <div class="col-sm-1 col-sm-offset-10">
-              <form action="/api/logout" method="POST">
-                <input type="submit" value="Logout">
-              </form>
-            </div>
-          </div>
-        </nav>
-
+        <%- include partials/_nav %>
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2 text-center">
             <h1 class="main-heading">PENDING ORDERS</h1>
@@ -84,19 +72,6 @@
         </div>
       </section>
     </div>
-
-
-    <script>
-      $('.before-slide').on('click', function(){
-          $(this).siblings('.after-reveal').slideToggle("400");
-          var collapsed=$(this).siblings.find('i').hasClass('fa-caret-down');
-
-          $('.before-slide').siblings.find('i').removeClass('fa-caret-up');
-          $('.before-slide').siblings.find('i').addClass('fa-caret-down');
-          if(collapsed)
-              $(this).siblings.find('i').toggleClass('fa-caret-down fa-caret-up')
-        });
-    </script>
-
+    
   </body>
 </html>
