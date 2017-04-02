@@ -6,13 +6,33 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    
-    knex
-      .select("*")
-      .from("orders")
+
+    knex('orders')
+      .select('id').whereNull('time_estimate')
+      .then((rows) => {
+        let orderIDs = [];
+        rows.forEach((row) =>{
+          orderIDs.push(row.id);
+        });
+        return knex('order_items')
+        .select('order_items.order_id', 'menu_items.image_url', 'menu_items.name', 'order_items.quantity')
+        .join('menu_items', 'menu_item_id', 'menu_items.id')
+        .whereIn('order_items.order_id', orderIDs);
+      })
       .then((results) => {
         res.json(results);
-    });
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+
+    
+    // knex
+    //   .select("*")
+    //   .from("orders")
+    //   .then((results) => {
+    //     res.json(results);
+    // });
   });
 
   router.post("/", (req, res) => {
