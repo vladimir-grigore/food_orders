@@ -86,6 +86,11 @@ app.get('/orders', (req, res) => {
   res.render("orders");
 });
 
+// Thank you page
+app.get('/thankyou', (req, res) => {
+  res.render("thankyou");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
