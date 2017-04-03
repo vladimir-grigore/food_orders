@@ -19,7 +19,7 @@ $(() => {
             "quantity": item.quantity
           };
         }
-        createCheckoutElement(item).appendTo(".table");
+        createCheckoutElement(item).insertAfter(".table .first-row");
       }
     });
     console.log("******", orderObject);
@@ -28,7 +28,7 @@ $(() => {
 
 
 function createCheckoutElement (item){
-  let $item = $('<tr>').addClass('checkout-item-row');
+  let $item = $('<div>').addClass('checkout-item-row');
   let $tableRow = $('<tr>').data('id', item.menu_item_id).appendTo($item);
   $('<td>').addClass('img-col')
   .append($('<img>').attr('src', item.image_url).attr('alt', 'menu-item-1').attr('width', '200')).appendTo($tableRow);
