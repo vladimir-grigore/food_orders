@@ -55,6 +55,7 @@ function orderReady(text) {
 }
 
 module.exports = {
-  call,
-  text
+  call: call,
+  text: text,
+  orderReady: orderReady
 };

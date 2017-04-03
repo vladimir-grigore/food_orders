@@ -18,7 +18,6 @@ const orderRoutes    = require("./routes/_orders");
 const twilio_helper  = require('./routes/twilio_helper');
 const indexRoutes     = require("./routes/_index");
 
-
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -57,17 +56,6 @@ app.use("/api/index", indexRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-//*******************************TEXT**********************************
-app.get('/orderTime', (req, res) => {
-  res.render("admin_order");
-});
-
-app.post('/orderTime', (req, res) => {
-  twilio_helper.text(req.body.time);
-  res.redirect('/'); // TODO: better redirect
-})
-//*************************TEXT****************************************
 
 // Login page
 app.get('/login', (req, res) => {

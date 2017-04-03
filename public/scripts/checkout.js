@@ -27,8 +27,16 @@ $(() => {
         };
       }
       createCheckoutElement(item).insertAfter(".col-sm-10.col-sm-offset-1 > .row.text-center.row-headings");
-      console.log("******", orderObject);
     }
+    updateTotalPrice();
+  }
+
+  function updateTotalPrice(){
+    let total = 0;
+    for(let item in orderObject) {
+      total += Number(orderObject[item].price);
+    }
+    $("p.total-price").text("$" + total.toFixed(2));
   }
 
   function deleteItemFromOrder(menuItemId){
@@ -71,57 +79,29 @@ $(() => {
     });
   });
 
+  function createCheckoutElement (item){
+    let $item = $('<div>').addClass('row text-center vertical-align row-items').data('id', item.menu_item_id);
+    $('<div>').addClass('col-sm-2')
+    .append($('<img>').attr('src', item.image_url).attr('alt', 'menu-item-1')).appendTo($item);
+    $('<div>').addClass('col-sm-3')
+    .append($('<p>').addClass('checkout-item-name').text(item.name)).appendTo($item);
 
+    let $tableRowForm = $('<div>').addClass('col-sm-3').appendTo($item);
 
-function createCheckoutElement (item){
-  let $item = $('<div>').addClass('row text-center vertical-align row-items').data('id', item.menu_item_id);
-  $('<div>').addClass('col-sm-2')
-  .append($('<img>').attr('src', item.image_url).attr('alt', 'menu-item-1')).appendTo($item);
-  $('<div>').addClass('col-sm-3')
-  .append($('<p>').addClass('checkout-item-name').text(item.name)).appendTo($item);
+    let $orderForm = $('<form>').addClass('form-inline quantity-form').appendTo($tableRowForm);
+    $("<button>").addClass("btn btn-default plus")
+    .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true")).appendTo($orderForm);
+    $('<input>').attr('type', 'text').addClass("form-control number-input").val(item.quantity).appendTo($orderForm);
+    $("<button>").addClass("btn btn-default minus")
+    .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
 
-  let $tableRowForm = $('<div>').addClass('col-sm-3').appendTo($item);
+    $('<div>').addClass('col-sm-2 checkout-price')
+    .append($('<p>').addClass('checkout-item-price').text("$" + item.price).data('price', item.price)).appendTo($item);
+    $('<div>').addClass('col-sm-2')
+    .append($('<a>').attr('href', '#').addClass('fa fa-times checkout-item-delete').attr('aria-hidden', 'true')).appendTo($item);
 
-  let $orderForm = $('<form>').addClass('form-inline quantity-form').appendTo($tableRowForm);
-  $("<button>").addClass("btn btn-default plus")
-  .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true")).appendTo($orderForm);
-  $('<input>').attr('type', 'text').addClass("form-control number-input").val(item.quantity).appendTo($orderForm);
-  $("<button>").addClass("btn btn-default minus")
-  .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
-
-  $('<div>').addClass('col-sm-2 checkout-price')
-  .append($('<p>').addClass('checkout-item-price').text("$" + item.price).data('price', item.price)).appendTo($item);
-  $('<div>').addClass('col-sm-2')
-  .append($('<a>').attr('href', '#').addClass('fa fa-times checkout-item-delete').attr('aria-hidden', 'true')).appendTo($item);
-
-  return $item;
-}
-
-// Handle click events for adding items to the cart
-// $(".checkout-container").on('click', 'form .checkout-item-quantity-form > button.plus', function(event){
-//   event.preventDefault();
-//   var menuName = $(this).parent().siblings(".checkout-item-row").find(".checkout-item-name").text();
-//   var menuPrice = $(this).parent().siblings(".checkout-item-row").find(".checkout-item-price").data("price");
-//   var menuItemId = $(this).parents("tr").data("id"); //****
-
-//   var $quantityField = $(this).parent().find("input.number-input");
-//   var value = Number($quantityField.val());
-//   $quantityField.val(value + 1);
-//   addMenuItemToBasket( Number(menuPrice), Number(menuItemId));
-// })
-
-// // Handle click events for removing items from the cart
-// $(".checkout-container").on('click', 'form.checkout-item-quantity-form > button.minus', function(event){
-//   event.preventDefault();
-//   var menuName = $(this).parent().siblings(".checkout-item-row").find(".checkout-item-name").text();
-//   var menuPrice = $(this).parent().siblings(".checkout-item-row").find(".checkout-item-price").data("price");
-//   var $quantityField = $(this).parent().find("input.number-input");
-//   var value = Number($quantityField.val());
-//   if (value > 0) {
-//     $quantityField.val(value - 1);
-//     removeMenuItemFromBasket(menuName, Number(menuPrice));
-//   }
-// })
+    return $item;
+  }
 
   // Handle click events for adding items to the cart
   $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus', function(event){
@@ -152,63 +132,33 @@ function createCheckoutElement (item){
     event.preventDefault();
     var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
     deleteItemFromOrder(menuItemId);
-});
+  });
 
-// Hold information about the order
-function addMenuItemToBasket(menu_item_id) {
-  let quantity = orderObject[menu_item_id].quantity;
-  let price = Number(orderObject[menu_item_id].price);
-  let perPrice = orderObject[menu_item_id].perPrice;
- 
-  price += perPrice;
-  orderObject[menu_item_id].quantity += 1;
-  orderObject[menu_item_id].price = price;
-  return price.toFixed(2);
-}
+  // Hold information about the order
+  function addMenuItemToBasket(menu_item_id) {
+    let quantity = orderObject[menu_item_id].quantity;
+    let price = Number(orderObject[menu_item_id].price);
+    let perPrice = orderObject[menu_item_id].perPrice;
+  
+    price += perPrice;
+    orderObject[menu_item_id].quantity += 1;
+    orderObject[menu_item_id].price = price;
+    updateTotalPrice();
+    return price.toFixed(2);
+  }
 
-// Remove item from basket
-function removeMenuItemFromBasket(menu_item_id) {
-  let quantity = orderObject[menu_item_id].quantity;
-  let price = Number(orderObject[menu_item_id].price);
-  let perPrice = orderObject[menu_item_id].perPrice;
+  // Remove item from basket
+  function removeMenuItemFromBasket(menu_item_id) {
+    let quantity = orderObject[menu_item_id].quantity;
+    let price = Number(orderObject[menu_item_id].price);
+    let perPrice = orderObject[menu_item_id].perPrice;
 
-  price -= perPrice;
-  orderObject[menu_item_id].quantity -= 1;
-  orderObject[menu_item_id].price = price;
-
-  return price.toFixed(2);
-}
-
-// function addMenuItemToBasket(menu_item_id, quantity) {
-//   let price =  orderObject[menu_item_id].price
-//   let quantity =  orderObject[menu_item_id].quantity
-//   let perPrice = price/quantity
-
-//   if(!orderObject[menu_item_id]){
-//     orderObject[menu_item_id] = {
-//       "id": menu_item_id,
-//       "quantity": quantity,
-//       "price": price
-//     }
-//   } else {
-//     orderObject[menu_item_id].quantity += 1;
-//     orderObject[menu_item_id].price += perPrice;
-//   }
-// }
-
-// // Remove item from basket
-// function removeMenuItemFromBasket(title, price) {
-//   let price =  orderObject[menu_item_id].price
-//   let quantity = orderObject[menu_item_id].quantity
-//   let perPrice = price/quantity
-
-//   quantity -= 1;
-//   price -= perPrice;
-//   // if (orderObject[menu_item_id].quantity === 0){
-//   //   delete orderObject[menu_item_id];
-//   // }
-// }
-
+    price -= perPrice;
+    orderObject[menu_item_id].quantity -= 1;
+    orderObject[menu_item_id].price = price;
+    updateTotalPrice();
+    return price.toFixed(2);
+  }
 })
 
 var orderObject = {};

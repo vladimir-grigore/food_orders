@@ -54,34 +54,6 @@ module.exports = (knex) => {
         .catch((err) => { 
           return console.error(err);
         });
-
-    // .then((rows) => {
-    //     console.log('This is the rows', rows);
-    //     res.status(200).end();
-    // })
-    // .catch((error) => {
-    //   console.log("Error", error)
-    // })
-    // .select('order.id', 'menu.name', 'order_items.quantity')
-    // .from('orders')
-    // .join('order_items', 'order_items.order_id', 'orders.id')
-    // .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
-    // .where({ 'order.id': 1})  // hackily chosen to be the order-id in the seed
-    //88888**************
-
-/*
-    .then((rows) => {
-      // turn rows into a suitable order_items
-      twilio_helper.call(req.params.id, rows);
-      res.status(200).end();
-    })
-    .catch((error) => {
-      console.log("everything is tears and regret", error);
-      res.status(500).end();
-    })
-  });
-
-*/
   })
 
   router.post("/:id/delete", (req, res) => {

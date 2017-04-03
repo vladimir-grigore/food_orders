@@ -43,7 +43,6 @@ module.exports = (knex) => {
 
   });
 
-
   router.post("/estimate/:id", (req, res) => {
     let orderId = req.params.id;
     let time = req.body.time;
