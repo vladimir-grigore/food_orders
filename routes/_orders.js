@@ -9,7 +9,7 @@ module.exports = (knex) => {
   router.get("/", (req, res) => {
 
     knex('orders')
-      .select('id', 'placed_at').whereNull('completed_at')
+      .select('id', 'placed_at').whereNull('completed_at').whereNotNull('placed_at')
       .then((rows) => {
         let orderIDs = [];
         rows.forEach((row) =>{
