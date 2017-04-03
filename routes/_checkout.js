@@ -59,7 +59,6 @@ module.exports = (knex) => {
     // .where({ 'order.id': 1})  // hackily chosen to be the order-id in the seed
     //88888**************
 
-
 /*
     .then((rows) => {
       // turn rows into a suitable order_items
