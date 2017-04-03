@@ -13,7 +13,6 @@ const knex        = require("knex")(knexConfig[ENV]);
 // Seperated Routes for each Resource
 const loginRoutes    = require("./routes/_login");
 const logoutRoutes   = require("./routes/_logout");
-// const menuRoutes     = require("./routes/_menu");
 const checkoutRoutes = require("./routes/_checkout");
 const orderRoutes    = require("./routes/_orders");
 
@@ -52,9 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Mount all resource routes
 app.use("/api/login", loginRoutes(knex));
 app.use("/api/logout", logoutRoutes());
-// app.use("/api/menu", menuRoutes(knex));
 app.use("/api/checkout", checkoutRoutes(knex));
-
 app.use("/api/orders", orderRoutes(knex));
 app.use("/api/index", indexRoutes(knex));
 
@@ -62,7 +59,6 @@ app.use("/api/index", indexRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
-
 
 
 //*******************************TEXT**********************************
@@ -78,12 +74,6 @@ app.post('/orderTime', (req, res) => {
 })
 //*************************TEXT****************************************
 
-
-
-// temporary - will be use the index page for this
-// app.get('/menu', (req, res) => {
-//   res.render("menu");
-// });
 
 // Login page
 app.get('/login', (req, res) => {

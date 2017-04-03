@@ -14,7 +14,6 @@ module.exports = (knex) => {
         let orderIDs = [];
         rows.forEach((row) =>{
           orderIDs.push(row.id);
-          console.log("TIME", moment(row.placed_at).fromNow())
         });
         return knex('order_items')
         .select('order_items.order_id', 'order_items.id', 'menu_items.image_url', 'menu_items.name', 'order_items.quantity')
@@ -25,33 +24,40 @@ module.exports = (knex) => {
         res.json(results);
       })
       .catch((err) => {
-        console.log(err)
+        return console.error(err);
       });
 
   });
 
-  router.get("/:id", (req, res) => {
+  router.get("/time/:id", (req, res) => {
     let orderId = req.params.id;
     knex('orders')
       .select('placed_at').where('id', orderId)
       .then((results) => {
         results[0].placed_at = moment(results[0].placed_at).fromNow();
-        console.log("REZZZZ", results);
         res.json(results);
       }).catch((err) => {
-        console.log(err)
+        return console.error(err);
       });
 
   });
 
-  router.post("/", (req, res) => {
-   // TODO get order id
-   // redirect to /orders/:id
+
+  router.post("/estimate/:id", (req, res) => {
+    let orderId = req.params.id;
+    let time = req.body.time;
+
+    knex('orders')
+      .where('id', orderId)
+      .update('time_estimate', time)
+      .then((results) => {
+        res.json(results);
+      }).catch((err) => {
+        return console.error(err);
+      });
   });
 
-  router.post("/:id", (req, res) => {
-   // TODO admin now has option to add time estimate
-   // redirect to /admin
+  router.post("/complete/:id", (req, res) => {
   });
 
   return router;

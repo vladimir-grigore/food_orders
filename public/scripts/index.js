@@ -1,12 +1,12 @@
 $(() => {
-    function loadMenuItems() {
-      $.ajax({
-        method: "GET",
-        url: "/api/index"
-      }).done((menu_items) => {
-        renderMenuItems(menu_items);
-      });
-    }
+  function loadMenuItems() {
+    $.ajax({
+      method: "GET",
+      url: "/api/index"
+    }).done((menu_items) => {
+      renderMenuItems(menu_items);
+    });
+  }
 
   loadMenuItems();
 
@@ -22,7 +22,16 @@ $(() => {
         window.location.href = `/checkout/${orderID}`;
       }
     );
-  })
+  });
+
+  function updateTotal(price) {
+    // TODO try to get rid of the data attribute
+    let total = $("footer.navbar-fixed-bottom h4").data("total");
+    total += price;
+    let displayTotal = "$" + total;
+    $("footer.navbar-fixed-bottom h4").data("total", total);
+    $("footer.navbar-fixed-bottom h4").text(displayTotal);
+  }
 
   function renderMenuItems(menu_items) {
     $(".menu-container").empty();
@@ -37,6 +46,9 @@ $(() => {
           $wrappingRow.append($item);
         }
         $(".menu-container").append($wrappingRow);
+        // Add data attribute to the footer total
+        $("footer.navbar-fixed-bottom h4").data("total", 0);
+        updateTotal(0); 
     }
   }
 
@@ -51,6 +63,7 @@ $(() => {
     var value = Number($quantityField.val());
     $quantityField.val(value + 1);
     addMenuItemToBasket(menuName, Number(menuPrice), Number(menuItemId));
+    updateTotal(Number(menuPrice));
   })
 
   // Handle click events for removing items from the cart
@@ -63,6 +76,7 @@ $(() => {
     if (value > 0) {
       $quantityField.val(value - 1);
       removeMenuItemFromBasket(menuName, Number(menuPrice));
+      updateTotal(-Math.abs(Number(menuPrice)));
     }
   })
 
@@ -90,9 +104,6 @@ $(() => {
     return $item;
   }
 
-  // $(".menu-container").on('click', 'form.quantity-form > button.minus';
-
-
   $(".menu-container").on('mouseover', 'article.menu-item', function(event){
     $(this).find('form.quantity-form').fadeIn(200);
   });
@@ -104,7 +115,6 @@ $(() => {
 });
 
 // Add item to basket
-
 function addMenuItemToBasket(title, price, id) {
   if(!orderObject[title]){
     orderObject[title] = {
