@@ -37,23 +37,24 @@ module.exports = (knex) => {
           knex('order_items')
             .update({"price": item.price, quantity: item.quantity})
             .where({"order_id": orderID, "menu_item_id": item.menu_item_id})
-            .then((rows) => {})
+            .then((rows) => {
+              return knex('order_items').select('menu_items.name', 'order_items.quantity')
+                    .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
+                    .where('order_items.order_id', orderID)
+                    .then((rows) => {
+                      twilio_helper.call(req.params.id, rows);
+                      res.status(200).end();
+                    })
+                    .catch((err) => { 
+                      return console.error(err);
+                    });
+            }).then((rows) => {})
             .catch((err) => { 
               return console.error(err);
             });
         }
       });
 
-      knex('order_items').select('menu_items.name', 'order_items.quantity')
-        .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
-        .where('order_items.order_id', orderID)
-        .then((rows) => {
-          twilio_helper.call(req.params.id, rows);
-          res.status(200).end();
-        })
-        .catch((err) => { 
-          return console.error(err);
-        });
   })
 
   router.post("/:id/delete", (req, res) => {
