@@ -5,7 +5,9 @@ const router  = express.Router();
 const twilio_helper = require('./twilio_helper');
 
 module.exports = (knex) => {
+
   router.get("/:id", (req, res) => {
+
     console.log("Above the knex statement");
     console.log("req.params.id", req.params.id)
     knex('order_items')
@@ -58,6 +60,7 @@ module.exports = (knex) => {
 
 
   router.post("/:id", (req, res) => {
+
     console.log("posted to orders.  body:", req.params.id);
 
     // TODO: get our (menu_item_id, quantity) pairs out of the req
@@ -98,5 +101,7 @@ module.exports = (knex) => {
       res.status(500).end();
     })
   });
+
 return router;
+
 }
