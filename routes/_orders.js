@@ -58,7 +58,17 @@ module.exports = (knex) => {
   });
 
   router.post("/complete/:id", (req, res) => {
+    let orderId = req.params.id;
+    let date = moment().tz("America/Vancouver").format();
     
+    knex('orders')
+      .where('id', orderId)
+      .update('completed_at', date)
+      .then((results) => {
+        res.json(results);
+      }).catch((err) => {
+        return console.error(err);
+      });
   });
 
   return router;

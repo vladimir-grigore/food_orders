@@ -21,6 +21,14 @@ $(() => {
     })
   }
 
+  function completeOrder(order_id){
+    $.ajax({
+      method: "POST",
+      url: `/api/orders/complete/${order_id}`,
+      data: {order_id: order_id}
+    }).done(loadPage());
+  }
+
   function addTimeEstimate(time_estimate, order_id){
     $.ajax({
       method: "POST",
@@ -30,17 +38,6 @@ $(() => {
   }
 
   function loadPendingOrders(pending_orders){
-     /*
-    Create object to hold each order
-    Structure is: {order_id: {
-      id: {
-        image_url: "/img/image-2.png",
-        name: "Crostini",
-        quantity: 2
-      }
-    }}
-    To get image: ordersObject.order_id.id.image_url
-    */
     var ordersObject = {};
     for(let order of pending_orders) {
       if (!ordersObject[order.order_id]){
@@ -153,5 +150,12 @@ $(() => {
         $(that).parents('.order-row').animate({'opacity':'0.5'}, 500);
     }, 1000);
   });
+
+  // Complete order
+  $('.orders-container' ).on('click', 'button.btn-complete', function(event) {
+    event.preventDefault();
+    let order_id = $(this).parent("form.estimated-time-form").data("order_id");
+    completeOrder(order_id);
+  })
 
 });
