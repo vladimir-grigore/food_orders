@@ -8,7 +8,7 @@ const MY_PHONE = process.env.MY_PHONE;
 var client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 function call(order_number, order_items){
-  let orderItemParamString = order_items.map((item) => `${item.quantity}+${item.name}`.replace(' ', '+')).join(',');
+  let orderItemParamString = order_items.map((item) => `${item.quantity}+${item.name}`.replace(/ /g, '+')).join(',');
   let orderNumberString = `order+number+${order_number}`;
   let urlString = `https://frozen-everglades-65134.herokuapp.com/?items=${orderNumberString},${orderItemParamString}`;
   client.makeCall({
