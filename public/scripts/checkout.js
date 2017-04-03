@@ -7,7 +7,8 @@ $(() => {
     method: "GET",
     url: "/api/checkout/" + id
   }).done((results) => {
-      console.log(results);
+      console.log("THESE ARE THE RESULTS", results);
+
     for(let item of results) {
       orderObject[item] = {
         "id": item.menu_item_id,
