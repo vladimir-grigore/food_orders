@@ -1,26 +1,55 @@
-var url = window.location.pathname;
-var id = url.substring(url.lastIndexOf('/') + 1);
-
 $(() => {
 
-  $.ajax({
-    method: "GET",
-    url: "/api/checkout/" + id
-  }).done((results) => {
-      console.log("THESE ARE THE RESULTS", results);
+  var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);
 
-    for(let item of results) {
-      orderObject[item] = {
-        "id": item.menu_item_id,
-        "quantity": item.quantity,
-        "price": item.price
-    }
+  loadPage();
 
+  function loadPage(){
+    console.log("ON THE CHECKOUT PAGE");
 
-    }
-  });
-
+    $.ajax({
+      method: "GET",
+      url: `/api/checkout/${id}`
+    }).done((results) => {
+      for(let item of results) {
+        if (!orderObject[item.menu_item_id]){
+          orderObject[item.menu_item_id] = {
+            "price": item.price,
+            "quantity": item.quantity
+          };
+        }
+        createCheckoutElement(item).appendTo(".table");
+      }
+    });
+    console.log("******", orderObject);
+  }
 });
+
+
+function createCheckoutElement (item){
+  let $item = $('<tr>').addClass('checkout-item-row');
+  let $tableRow = $('<tr>').data('id', item.menu_item_id).appendTo($item);
+  $('<td>').addClass('img-col')
+  .append($('<img>').attr('src', item.image_url).attr('alt', 'menu-item-1').attr('width', '200')).appendTo($tableRow);
+  $('<td>')
+  .append($('<p>').addClass('checkout-item-name').text(item.name)).appendTo($tableRow);
+
+  let $tableRowForm = $('<td>').appendTo($tableRow);
+
+  let $orderForm = $('<form>').addClass('form-inline checkout-item-quantity-form').appendTo($tableRowForm);
+  $("<button>").addClass("btn btn-default")
+  .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true").attr("id", "number-input").text(item.quantity)).appendTo($orderForm);
+  $("<button>").addClass("btn btn-default")
+  .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
+
+  $('<td>')
+  .append($('<p>').addClass('checkout-item-price').text("$" + item.price).data('price', item.price)).appendTo($tableRow);
+  $('<td>')
+  .append($('<a>').attr('href', '#').addClass('fa fa-times checkout-item-delete').attr('aria-hidden', 'true')).appendTo($tableRow);
+
+  return $item;
+}
 
 // Handle click events for adding items to the cart
 $(".checkout-container").on('click', 'form.checkout-item-quantity-form > button.plus', function(event){
@@ -48,37 +77,12 @@ $(".checkout-container").on('click', 'form.checkout-item-quantity-form > button.
   }
 })
 
-function createCheckoutElement (item){
-  let $item = $('<div>').addClass('checkout-item-row');
-  let $tableRow = $('<tr>').data('id', item.id).appendTo($item);
-  $('<td>').addClass('img-col')
-  .append($('<img>').attr('src', item.image_url).attr('alt', 'menu-item-1').attr('width', '200')).appendTo($tableRow);
-  $('<td>')
-  .append($('<p>').addClass('checkout-item-name').text(item.name)).appendTo($tableRow);
-
-  let tableRowForm = $('<td>').appendTo($tableRow)
-
-  let $orderForm = $('<form>').addClass('form-inline checkout-item-quantity-form').appendTo($tableRowForm);
-  $("<button>").addClass("btn btn-default plus")
-  .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true")).appendTo($orderForm);
-  $("<input>").attr("type", "text").addClass("form-control number-input").val(item.quantity).appendTo($orderForm);
-  $("<button>").addClass("btn btn-default minus")
-  .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
-
-  $('<td>')
-  .append($('<p>').addClass('checkout-item-price').text("$" + item.price).data('price', item.price)).appendTo($tableRow);
-  $('<td>')
-  .append($('<a>').attr('href', '#').addClass('fa fa-times checkout-item-delete').attr('aria-hidden', 'true').appendTo($tableRow));
-
-  return $item;
-}
 
 // Hold information about the order
-
 function addMenuItemToBasket(title, price, id, quantity) {
-    let price = price
-    let quantity = quantity
-    let perPrice = price/quantity
+  let price = price
+  let quantity = quantity
+  let perPrice = price/quantity
 
   if(!orderObject[title]){
     orderObject[title] = {
@@ -87,8 +91,8 @@ function addMenuItemToBasket(title, price, id, quantity) {
       "price": price
     }
   } else {
-      orderObject[title].quantity += 1;
-      orderObject[title].price += perPrice;
+    orderObject[title].quantity += 1;
+    orderObject[title].price += perPrice;
   }
 }
 
