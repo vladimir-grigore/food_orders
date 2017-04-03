@@ -1,28 +1,40 @@
 <%- include partials/_head %>
+<!-- <%- include partials/_nav %> -->
 
   <body>
     <header>
-      <div class="row">
-        <div class="col-sm-12 text-center">
-          <%- include partials/_nav %>
-          <div class="container">
 
-            <div class="col-sm-4">
+      <div class="container">
 
-            </div>
-            <div class="col-sm-4">
-              <img src="/img/image-1b.png" alt="menu-item-1">
-            </div>
-            <div class="col-sm-4">
+        <div class="row">
+          <div class="vertical-align">
 
-            </div>
+          <div class="col-sm-4">
+            <img class="header-icons fork" src="/img/fork.svg" alt="fork">
+          </div>
+          <div class="col-sm-4">
+            <img class="plate" src="/img/image-1b.png" alt="menu-item-1">
+          </div>
+          <div class="col-sm-4">
+            <img class="header-icons knife" src="/img/knife.svg" alt="knife">
+          </div>
+
+          </div>
 
         </div>
-          <!-- <h1 class="main-heading">CATTLE & GEESE</h1>
-          <h2>Take me home tonight.</h4> -->
+
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h1 class="main-heading">cattle + geese</h1>
+          </div>
         </div>
+
       </div>
+
     </header>
+
+
+
 
     <div class="container">
 
@@ -49,6 +61,18 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      $(document).ready(function() {
+        $(window).scroll(function() {
+          if ($(this).scrollTop() < 150) {
+            $("footer").slideUp();
+          } else {
+            $("footer").slideDown();
+          }
+        });
+      });
+    </script>
 
   </body>
 </html>
