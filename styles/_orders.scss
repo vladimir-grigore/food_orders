@@ -1,5 +1,13 @@
+header.main{
+
+  img.orders-icon{
+    width:3rem;
+    margin-top:5rem;
+  }
+}
+
 .orders-container{
-  margin:6rem 0 10rem 0;
+  margin:15rem 0 18rem 0;
   background-color:$color-bg;
   border:1px solid #323232;
 }
@@ -9,8 +17,6 @@
   padding:1rem 1rem 1rem 1rem;
   margin-top:4rem;
   border-bottom:1px solid #323232;
-
-
 
   p.items{
     font-family:$font-accent;
