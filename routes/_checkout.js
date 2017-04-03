@@ -83,5 +83,17 @@ module.exports = (knex) => {
 
 */
   })
+
+  router.post("/:id/delete", (req, res) => {
+    knex('order_items').del()
+      .where('menu_item_id', req.body.menu_item_id)
+      .then((results) => {
+        res.json(results);
+      })
+      .catch((err) => { 
+        return console.error(err);
+      });
+
+  })
   return router;
 }

@@ -1,9 +1,6 @@
 $(() => {
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf('/') + 1);
-
-
-
   loadPage();
 
   function loadPage(){
@@ -11,21 +8,38 @@ $(() => {
       method: "GET",
       url: `/api/checkout/${id}`
     }).done((results) => {
-      for(let item of results) {
-        if (!orderObject[item.menu_item_id]){
-          orderObject[item.menu_item_id] = {
-            "price": item.price,
-            "quantity": item.quantity,
-            "menu_item_id": item.menu_item_id,
-            "name": item.name,
-            "perPrice": Number(item.price)/item.quantity
-          };
-        }
-        createCheckoutElement(item).insertAfter(".col-sm-10.col-sm-offset-1 > .row.text-center.row-headings");
+      if (!results[0]) {
+        window.location.href = `/`;
       }
+      loadCheckoutItems(results);
     });
-    console.log("******", orderObject);
   }
+
+  function loadCheckoutItems(results) {
+    for(let item of results) {
+      if (!orderObject[item.menu_item_id]){
+        orderObject[item.menu_item_id] = {
+          "price": item.price,
+          "quantity": item.quantity,
+          "menu_item_id": item.menu_item_id,
+          "name": item.name,
+          "perPrice": Number(item.price)/item.quantity
+        };
+      }
+      createCheckoutElement(item).insertAfter(".col-sm-10.col-sm-offset-1 > .row.text-center.row-headings");
+      console.log("******", orderObject);
+    }
+  }
+
+  function deleteItemFromOrder(menuItemId){
+    $.ajax({
+      method: "POST",
+      url: `/api/checkout/${id}/delete`,
+      data: {menu_item_id: menuItemId}
+    }).done(() => {
+      window.location.href = `/checkout/${id}`;
+    });
+  };
 
   $("#pay-in-person").on('click', function(event) {
     event.preventDefault();
@@ -109,19 +123,18 @@ function createCheckoutElement (item){
 //   }
 // })
 
-// Handle click events for adding items to the cart
+  // Handle click events for adding items to the cart
+  $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus', function(event){
+    event.preventDefault();
+    var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
+    var $quantityField = $(this).parent().find("input.number-input");
+    var quantity = Number($quantityField.val());
+    $quantityField.val(quantity + 1);
+    let newPrice = addMenuItemToBasket(Number(menuItemId));
+    $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
+  })
 
-$("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus', function(event){
-  event.preventDefault();
-  var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
-  var $quantityField = $(this).parent().find("input.number-input");
-  var quantity = Number($quantityField.val());
-  $quantityField.val(quantity + 1);
-  let newPrice = addMenuItemToBasket(Number(menuItemId));
-  $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
-})
-
-// Handle click events for removing items from the cart
+  // Handle click events for removing items from the cart
   $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.minus', function(event){
     event.preventDefault();
     var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
@@ -134,6 +147,11 @@ $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus
     }  
   })
 
+  
+  $("div.col-sm-10.col-sm-offset-1").on('click', 'a.checkout-item-delete', function(event){
+    event.preventDefault();
+    var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
+    deleteItemFromOrder(menuItemId);
 });
 
 // Hold information about the order
@@ -191,4 +209,6 @@ function removeMenuItemFromBasket(menu_item_id) {
 //   // }
 // }
 
-  var orderObject = {};
+})
+
+var orderObject = {};
