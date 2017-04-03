@@ -60,7 +60,7 @@ $(() => {
       }
     })
     .done(() => {
-      window.location.href = `/`;
+      window.location.href = `/thankyou`;
     });
   });
 
@@ -75,7 +75,7 @@ $(() => {
       }
     })
     .done(() => {
-      window.location.href = `/`;
+      window.location.href = `/thankyou`;
     });
   });
 
@@ -124,10 +124,10 @@ $(() => {
       $quantityField.val(value - 1);
       let newPrice = removeMenuItemFromBasket(Number(menuItemId));
       $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
-    }  
+    }
   })
 
-  
+
   $("div.col-sm-10.col-sm-offset-1").on('click', 'a.checkout-item-delete', function(event){
     event.preventDefault();
     var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
@@ -139,7 +139,7 @@ $(() => {
     let quantity = orderObject[menu_item_id].quantity;
     let price = Number(orderObject[menu_item_id].price);
     let perPrice = orderObject[menu_item_id].perPrice;
-  
+
     price += perPrice;
     orderObject[menu_item_id].quantity += 1;
     orderObject[menu_item_id].price = price;
