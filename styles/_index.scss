@@ -1,9 +1,25 @@
 header{
-  height:60rem;
-  .col-sm-4{
-    border:1px solid red;
+  width: 100vw;
+  height: 100vh;
+  margin: 0vh auto;
+  background-color:#292929;
+  border:8px solid white;
+
+  img.header-icons{
+    width: 10vw;
+    height: 10vh;
+    margin: 45vh auto;
   }
-  img{
+
+  img.fork{
+    float:right;
+  }
+
+  img.knife{
+    float:left;
+  }
+
+  img.plate{
     width:100%;
   }
 }
@@ -87,6 +103,18 @@ article.menu-item {
 footer {
   background-color:$color-bg;
   padding:1.8rem;
+  box-shadow: 3px 3px 7px 3px #ccc;
+
+
+  // for footer animation
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:inherit;
+  width:100%;
+  display: none;
+  z-index: 2;
+
 
   p{
     text-transform:uppercase;
