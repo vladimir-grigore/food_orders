@@ -17,7 +17,8 @@ $(() => {
             "price": item.price,
             "quantity": item.quantity,
             "menu_item_id": item.menu_item_id,
-            "name": item.name
+            "name": item.name,
+            "perPrice": Number(item.price)/item.quantity
           };
         }
         createCheckoutElement(item).insertAfter(".col-sm-10.col-sm-offset-1 > .row.text-center.row-headings");
@@ -117,50 +118,48 @@ $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus
   var quantity = Number($quantityField.val());
   $quantityField.val(quantity + 1);
   let newPrice = addMenuItemToBasket(Number(menuItemId));
-  console.log("---", newPrice)
   $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
 })
 
 // Handle click events for removing items from the cart
-$(".container").on('click', 'form.quantity-form > button.minus', function(event){
-  event.preventDefault();
-  var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
-  var $quantityField = $(this).parent().find("input.number-input");
-  var value = Number($quantityField.val());
-  if (value > 0) {
-    $quantityField.val(value - 1);
-    // removeMenuItemFromBasket(Number(menuItemId));
-  }
-})
+  $("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.minus', function(event){
+    event.preventDefault();
+    var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
+    var $quantityField = $(this).parent().find("input.number-input");
+    var value = Number($quantityField.val());
+    if (value > 0) {
+      $quantityField.val(value - 1);
+      let newPrice = removeMenuItemFromBasket(Number(menuItemId));
+      $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
+    }  
+  })
 
 });
-
 
 // Hold information about the order
 function addMenuItemToBasket(menu_item_id) {
   let quantity = orderObject[menu_item_id].quantity;
   let price = Number(orderObject[menu_item_id].price);
-  let perPrice = price/quantity;
-
+  let perPrice = orderObject[menu_item_id].perPrice;
+ 
   price += perPrice;
   orderObject[menu_item_id].quantity += 1;
   orderObject[menu_item_id].price = price;
-
   return price.toFixed(2);
 }
 
 // Remove item from basket
-// function removeMenuItemFromBasket(menu_item_id) {
-//   let price = orderObject[menu_item_id].price
-//   let quantity = orderObject[menu_item_id].quantity
-//   let perPrice = price/quantity
+function removeMenuItemFromBasket(menu_item_id) {
+  let quantity = orderObject[menu_item_id].quantity;
+  let price = Number(orderObject[menu_item_id].price);
+  let perPrice = orderObject[menu_item_id].perPrice;
 
-//   quantity -= 1;
-//   price -= perPrice;
-//   // if (orderObject[item.menu_item_id].quantity === 0){
-//   //   delete orderObject[item.menu_item_id];
-//   // }
-// }
+  price -= perPrice;
+  orderObject[menu_item_id].quantity -= 1;
+  orderObject[menu_item_id].price = price;
+
+  return price.toFixed(2);
+}
 
 // function addMenuItemToBasket(menu_item_id, quantity) {
 //   let price =  orderObject[menu_item_id].price
