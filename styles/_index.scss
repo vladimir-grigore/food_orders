@@ -2,13 +2,26 @@ header{
   width: 100vw;
   height: 100vh;
   margin: 0vh auto;
-  background-color:#292929;
+  background-color:$color-dark;
   border:8px solid white;
+  color:white;
+
+  .col-sm-4, .col-sm-12{
+    // border:1px solid red;
+  }
+
+  h1{
+    font-family: 'Open Sans', sans-serif;
+    font-weight:700;
+    font-style:italic;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top:5.4rem;
+  }
 
   img.header-icons{
-    width: 10vw;
-    height: 10vh;
-    margin: 45vh auto;
+    width:2rem;
   }
 
   img.fork{
@@ -49,7 +62,6 @@ article.menu-item {
   }
 
   form.quantity-form {
-    // opacity:0;
     display:none;
     padding:1rem 0 1rem 0;
     position: absolute;
@@ -57,17 +69,13 @@ article.menu-item {
     transform: translate(-50%, 0);
     top:14.8rem;
 
-    &:hover{
-      opacity:1;
-    }
-
     input.number-input{
       width:3.5rem;
       text-align:center;
       background-color:white;
       border:none;
       border-radius:0;
-      color:black;
+      color:$color-accent;
     }
 
     button{
@@ -75,7 +83,7 @@ article.menu-item {
       background-color:transparent;
 
       &:hover{
-        color:$color-accent;
+        color:$color-pink;
       }
     }
   }
@@ -95,7 +103,7 @@ article.menu-item {
       float:right;
       font-size:1.3rem;
       font-weight:500;
-      color:$color-accent;
+      color:$color-pink;
     }
   }
 }
@@ -130,9 +138,9 @@ footer {
   button{
     display:inline-block;
     border-radius:0;
-    padding:1.4rem 2rem 1.4rem 2rem;
+    padding:1.3rem 1.8rem 1.3rem 1.8rem;
     text-transform:uppercase;
-    border:none;
+    border:3px solid $color-accent;
     background-color:$color-accent;
     color:white;
     font-weight:500;
@@ -141,8 +149,11 @@ footer {
     letter-spacing:0.15rem;
 
     &:hover{
-      background-color: black;
-      color:white;
+      // background-color: $color-pink;
+      box-sizing:border-box;
+      background-color:transparent;
+      border:3px solid $color-accent;
+      color:$color-accent;
     }
   }
 }
