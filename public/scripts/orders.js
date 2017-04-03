@@ -148,7 +148,7 @@ $(() => {
       var that = $(this);
       setTimeout(function(){
         $(that).parents('.order-row').find('div.before-slide').trigger('click');
-          $(that).parents('.order-row').animate({'opacity':'0.5'}, 500);
+          $(that).parents('.order-row').animate({'opacity':'0.3'}, 500);
       }, 1000);
     }
 
