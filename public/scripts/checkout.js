@@ -1,21 +1,28 @@
-var url = window.location.pathname;
-var id = url.substring(url.lastIndexOf('/') + 1);
-
 $(() => {
 
-  $.ajax({
-    method: "GET",
-    url: "/api/checkout/" + id
-  }).done((results) => {
-    console.log(results);
-    for(let item of results) {
-      orderObject[item] = {
-        "id": item.menu_item_id,
-        "quantity": item.quantity,
-        "price": item.price
+  var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);
+  loadPage();
+
+  function loadPage(){
+    console.log("ON THE CHECKOUT PAGE");
+
+    $.ajax({
+      method: "GET",
+      url: `/api/checkout/${id}`
+    }).done((results) => {
+      console.log("_-_-_-", results);
+      for(let item of results) {
+        console.log("====", item);
+        // orderObject[item] = {
+        //   "id": item.menu_item_id,
+        //   "quantity": item.quantity,
+        //   "price": item.price
+        // }
       }
-    }
-  });
+    });
+  }
+
 
   // Handle click events for adding items to the cart
   $(".checkout-container").on('click', 'form.checkout-item-quantity-form > button.plus', function(event){
