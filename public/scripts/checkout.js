@@ -1,14 +1,12 @@
 $(() => {
-
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf('/') + 1);
-  var orderObject = {};
+
+
 
   loadPage();
 
   function loadPage(){
-    console.log("ON THE CHECKOUT PAGE");
-
     $.ajax({
       method: "GET",
       url: `/api/checkout/${id}`
@@ -18,7 +16,8 @@ $(() => {
           orderObject[item.menu_item_id] = {
             "price": item.price,
             "quantity": item.quantity,
-            "menu_item_id": item.menu_item_id
+            "menu_item_id": item.menu_item_id,
+            "name": item.name
           };
         }
         createCheckoutElement(item).insertAfter(".col-sm-10.col-sm-offset-1 > .row.text-center.row-headings");
@@ -197,3 +196,4 @@ $(".container").on('click', 'form.quantity-form > button.minus', function(event)
 //   // }
 // }
 
+  var orderObject = {};

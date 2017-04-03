@@ -9,7 +9,7 @@ module.exports = (knex) => {
   router.get("/", (req, res) => {
 
     knex('orders')
-      .select('id', 'placed_at').whereNull('completed_at')
+      .select('id', 'placed_at').whereNull('completed_at').whereNotNull('placed_at')
       .then((rows) => {
         let orderIDs = [];
         rows.forEach((row) =>{
@@ -58,6 +58,17 @@ module.exports = (knex) => {
   });
 
   router.post("/complete/:id", (req, res) => {
+    let orderId = req.params.id;
+    let date = moment().tz("America/Vancouver").format();
+    
+    knex('orders')
+      .where('id', orderId)
+      .update('completed_at', date)
+      .then((results) => {
+        res.json(results);
+      }).catch((err) => {
+        return console.error(err);
+      });
   });
 
   return router;

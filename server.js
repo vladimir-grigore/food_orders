@@ -60,10 +60,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-
 //*******************************TEXT**********************************
-
-
 app.get('/orderTime', (req, res) => {
   res.render("admin_order");
 });
@@ -73,7 +70,6 @@ app.post('/orderTime', (req, res) => {
   res.redirect('/'); // TODO: better redirect
 })
 //*************************TEXT****************************************
-
 
 // Login page
 app.get('/login', (req, res) => {
