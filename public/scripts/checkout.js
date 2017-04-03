@@ -68,18 +68,17 @@ function createCheckoutElement (item){
   let $tableRowForm = $('<div>').addClass('col-sm-3').appendTo($item);
 
   let $orderForm = $('<form>').addClass('form-inline quantity-form').appendTo($tableRowForm);
-  $("<button>").addClass("btn btn-default")
+  $("<button>").addClass("btn btn-default plus")
   .append($("<i>").addClass("fa fa-plus").attr("aria-hidden", "true")).appendTo($orderForm);
   $('<input>').attr('type', 'text').addClass("form-control number-input").val(item.quantity).appendTo($orderForm);
-  $("<button>").addClass("btn btn-default")
+  $("<button>").addClass("btn btn-default minus")
   .append($("<i>").addClass("fa fa-minus").attr("aria-hidden", "true")).appendTo($orderForm);
 
-  $('<div>').addClass('col-sm-2')
+  $('<div>').addClass('col-sm-2 checkout-price')
   .append($('<p>').addClass('checkout-item-price').text("$" + item.price).data('price', item.price)).appendTo($item);
   $('<div>').addClass('col-sm-2')
   .append($('<a>').attr('href', '#').addClass('fa fa-times checkout-item-delete').attr('aria-hidden', 'true')).appendTo($item);
 
-  console.log(item.menu_item_id);
   return $item;
 }
 
@@ -110,14 +109,16 @@ function createCheckoutElement (item){
 // })
 
 // Handle click events for adding items to the cart
-$(".container").on('click', 'form.quantity-form > button.plus', function(event){
+
+$("div.col-sm-10.col-sm-offset-1").on('click', 'form.quantity-form > button.plus', function(event){
   event.preventDefault();
-  var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id"); //****
-  console.log(menuItemId)
+  var menuItemId = $(this).parents(".row.text-center.vertical-align.row-items").data("id");
   var $quantityField = $(this).parent().find("input.number-input");
-  var value = Number($quantityField.val());
-  $quantityField.val(value + 1);
-  // addMenuItemToBasket(Number(menuItemId));
+  var quantity = Number($quantityField.val());
+  $quantityField.val(quantity + 1);
+  let newPrice = addMenuItemToBasket(Number(menuItemId));
+  console.log("---", newPrice)
+  $(this).parents("div.col-sm-3").siblings(".checkout-price").find(".checkout-item-price").text("$" + newPrice);
 })
 
 // Handle click events for removing items from the cart
@@ -136,22 +137,17 @@ $(".container").on('click', 'form.quantity-form > button.minus', function(event)
 
 
 // Hold information about the order
-// function addMenuItemToBasket(menu_item_id) {
-//   let price = orderObject[menu_item_id].price
-//   let quantity = orderObject[menu_item_id].quantity
-//   let perPrice = price/quantity
+function addMenuItemToBasket(menu_item_id) {
+  let quantity = orderObject[menu_item_id].quantity;
+  let price = Number(orderObject[menu_item_id].price);
+  let perPrice = price/quantity;
 
-//   if(!orderObject[menu_item_id]){
-//     orderObject[menu_item_id] = {
-//       "id": menu_item_id,
-//       "quantity": quantity,
-//       "price": price
-//     }
-//   } else {
-//     quantity += 1;
-//     price += perPrice;
-//   }
-// }
+  price += perPrice;
+  orderObject[menu_item_id].quantity += 1;
+  orderObject[menu_item_id].price = price;
+
+  return price.toFixed(2);
+}
 
 // Remove item from basket
 // function removeMenuItemFromBasket(menu_item_id) {
