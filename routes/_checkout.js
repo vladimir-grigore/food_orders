@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment  = require('moment-timezone');
 const twilio_helper = require('./twilio_helper');
 
 module.exports = (knex) => {
@@ -18,72 +19,32 @@ module.exports = (knex) => {
     })
   });
 
-
-  // router.post("/", (req, res) => {
-  //   });
-  // return router;
-
-
- // router.get("/", (req, res) => {
-
-
-
-///// BEGIN RANDOM JEREMY-NOTES
-
-// function itemURL(){
-//   knex.select('quantity').from('order_items')
-//   .where
-// }
-// app.post('/orders', (req, res) =>{
-//   // 1) get the list of menu_item IDs, and quantities (should be in req.body or something?)
-//   call();
-//   res.end();
-// });
-
-// app.
-
-
-// make_promise()
-// .then((results) => {
-//   return make_another_promise();
-// })
-// .then((foo) => {
-//   console.log(foo);
-// })
-
-///// END RANDOM JEREMY-NOTES
-
-
   router.post("/:id", (req, res) => {
-
-    console.log("==req.params.id==", req.params.id);
-    let payment_option = req.body.payemnt_option;
-    console.log("==payment_option==", payment_option);  
+    // Timestamp with time zone
+    let date = moment().tz("America/Vancouver").format();
+    let payment = req.body.payemnt_option;
     let orderObj = req.body.items;
-    for(let item of orderObj){
-      console.log("a", item.price);
-      console.log("b", item.quantity);
-      console.log("c", item.menu_item_id);
-    }
+    let orderID = req.params.id;
 
-    // TODO: get our (menu_item_id, quantity) pairs out of the req
-    // TODO: try to create a new order in the DB
-    //    2a) create the order, "returning" order_id
-    //    2b) create the order_items
-    //    2c) remember to return the order_id
-    // TODO: get the whole order from the DB.  order_id, list of menu items, name for each menu item, the whole shebang
-    // TODO: pass all that shit to twilio_helper.call()
-    // TODO: if nothing crashed, res.send();
-    // TODO: if any of it did crash, res.status(500).send();
+    knex('orders')
+      .where('id', orderID)
+      .update({payment_option: payment, placed_at: date})
+      .asCallback((err, rows) => {
+        if (err) {
+          return console.error(err);
+        }
+        for(let item of orderObj){
 
-
-/*
-    knex('order_items')
-    .join('menu_items', 'menu_item_id', 'menu_items.id')
-    .select('order_items.quantity', 'menu_items.name')
-    .where('order_items.order_id', req.params.id)
-*/
-
+          knex('order_items')
+            .update({"price": item.price, quantity: item.quantity})
+            .where({"order_id": orderID, "menu_item_id": item.menu_item_id})
+            .then((rows) => {})
+            .catch((err) => { 
+              return console.error(err);
+            });
+        }
+        // res.json(orderID);
+      });
 
     // .then((rows) => {
     //     console.log('This is the rows', rows);

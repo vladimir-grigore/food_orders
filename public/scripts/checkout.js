@@ -17,7 +17,8 @@ $(() => {
           orderObject[item.menu_item_id] = {
             "price": item.price,
             "quantity": item.quantity,
-            "menu_item_id": item.menu_item_id
+            "menu_item_id": item.menu_item_id,
+            "name": item.name
           };
         }
         createCheckoutElement(item).appendTo(".table");
