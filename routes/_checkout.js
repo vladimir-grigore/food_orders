@@ -34,7 +34,6 @@ module.exports = (knex) => {
           return console.error(err);
         }
         for(let item of orderObj){
-
           knex('order_items')
             .update({"price": item.price, quantity: item.quantity})
             .where({"order_id": orderID, "menu_item_id": item.menu_item_id})

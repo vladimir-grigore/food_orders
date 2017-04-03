@@ -116,19 +116,6 @@ $(() => {
     return $orderItem;
   }
 
-  // $('MENU_ITEM').on('click', function(event){
-  //   event.preventDefault();
-  //   order_id = get order ID from data attribute
-
-  //   $.ajax({
-  //     method: "POST",
-  //     url: "/api/orders",
-  //     data: $(this).serialize()
-  //   }).done(
-  //     // TODO rediret to the GET /admin/orders/:id route
-  //   );
-  // });
-
   // Expand the orders container
   $('.orders-container').on('click','div.order-row > div.before-slide', function(event){
     event.preventDefault();

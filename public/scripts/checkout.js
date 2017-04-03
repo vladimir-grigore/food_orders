@@ -1,13 +1,9 @@
 $(() => {
-
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf('/') + 1);
-
   loadPage();
 
   function loadPage(){
-    console.log("ON THE CHECKOUT PAGE");
-
     $.ajax({
       method: "GET",
       url: `/api/checkout/${id}`
