@@ -7,18 +7,13 @@ const twilio_helper = require('./twilio_helper');
 module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
-
-    console.log("Above the knex statement");
-    console.log("req.params.id", req.params.id)
     knex('order_items')
     .select('order_items.quantity', 'order_items.price', 'order_items.menu_item_id', 'menu_items.name', 'menu_items.image_url')
     .join('menu_items', 'menu_item_id', 'menu_items.id')
     .where('order_items.order_id', req.params.id)
       .then((results) => {
-        console.log('THESE ARE THE RESULTS', results);
         res.json(results);
     }).catch((error) => {
-      console.log("everything is tears and regret", error);
       res.status(500).end();
     })
   });
@@ -61,7 +56,15 @@ module.exports = (knex) => {
 
   router.post("/:id", (req, res) => {
 
-    console.log("posted to orders.  body:", req.params.id);
+    console.log("==req.params.id==", req.params.id);
+    let payment_option = req.body.payemnt_option;
+    console.log("==payment_option==", payment_option);  
+    let orderObj = req.body.items;
+    for(let item of orderObj){
+      console.log("a", item.price);
+      console.log("b", item.quantity);
+      console.log("c", item.menu_item_id);
+    }
 
     // TODO: get our (menu_item_id, quantity) pairs out of the req
     // TODO: try to create a new order in the DB
@@ -73,10 +76,15 @@ module.exports = (knex) => {
     // TODO: if nothing crashed, res.send();
     // TODO: if any of it did crash, res.status(500).send();
 
+
+/*
     knex('order_items')
     .join('menu_items', 'menu_item_id', 'menu_items.id')
     .select('order_items.quantity', 'menu_items.name')
     .where('order_items.order_id', req.params.id)
+*/
+
+
     // .then((rows) => {
     //     console.log('This is the rows', rows);
     //     res.status(200).end();
@@ -91,6 +99,8 @@ module.exports = (knex) => {
     // .where({ 'order.id': 1})  // hackily chosen to be the order-id in the seed
     //88888**************
 
+
+/*
     .then((rows) => {
       // turn rows into a suitable order_items
       twilio_helper.call(req.params.id, rows);
@@ -102,6 +112,7 @@ module.exports = (knex) => {
     })
   });
 
-return router;
-
+*/
+  })
+  return router;
 }
