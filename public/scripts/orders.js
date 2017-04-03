@@ -127,11 +127,11 @@ $(() => {
   })
 
   // Function to swap submit time button to complete order button
-  $('.orders-container' ).on('submit', 'form.estimated-time-form', function(event) {
+  $('.orders-container').on('submit', 'form.estimated-time-form', function(event) {
     event.preventDefault();
     let btnTimeSubmit = $(this).find('button.btn-time-submit, div.form-group');
     let btnComplete = $(this).find('button.btn-complete');
-    
+
     let order_id = $(this).data("order_id");
     let time_estimate = $(this).find("#estimated-time-input").val();
 
@@ -143,12 +143,15 @@ $(() => {
       });
     }
 
-    // close row aftr delay AND THEN lower opacity
-    var that = $(this);
-    setTimeout(function(){
-      $(that).parents('.order-row').find('div.before-slide').trigger('click');
-        $(that).parents('.order-row').animate({'opacity':'0.5'}, 500);
-    }, 1000);
+    // close row after delay AND THEN lower opacity only if form is filled
+    if (Number(time_estimate)){
+      var that = $(this);
+      setTimeout(function(){
+        $(that).parents('.order-row').find('div.before-slide').trigger('click');
+          $(that).parents('.order-row').animate({'opacity':'0.3'}, 500);
+      }, 1000);
+    }
+
   });
 
   // Complete order

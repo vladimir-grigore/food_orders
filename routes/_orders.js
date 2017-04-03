@@ -61,7 +61,7 @@ module.exports = (knex) => {
   router.post("/complete/:id", (req, res) => {
     let orderId = req.params.id;
     let date = moment().tz("America/Vancouver").format();
-    
+
     knex('orders')
       .where('id', orderId)
       .update('completed_at', date)
@@ -70,7 +70,7 @@ module.exports = (knex) => {
       }).catch((err) => {
         return console.error(err);
       });
-      twilio_helper.orderReady("Your order is ready. Come and get it!");
+      twilio_helper.orderReady('Your order is ready to be picked up!')
   });
 
   return router;
