@@ -1,10 +1,10 @@
-var url = window.location.pathname;
-var id = url.substring(url.lastIndexOf('/') + 1);
-
 $(() => {
-  $('.btn.checkout').on('click', function(){
+  var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);
 
-    $.post('/api/checkout/'+id)
-  })
+  // $("#pay-in-person").on('click', function(event) {
+  //   event.preventDefault();
+  //   $.post('/api/checkout/'+id)
+  // });  
 
 });

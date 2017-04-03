@@ -22,9 +22,6 @@ module.exports = (knex) => {
     // Get the uset ID
     let user_id = req.cookies.user_id;
     
-    // Temporary
-    let payment_option = "in_person";
-
     // Create a new order
     let orderID;
     // Create entry in orders table

@@ -16,7 +16,8 @@ $(() => {
         if (!orderObject[item.menu_item_id]){
           orderObject[item.menu_item_id] = {
             "price": item.price,
-            "quantity": item.quantity
+            "quantity": item.quantity,
+            "menu_item_id": item.menu_item_id
           };
         }
         createCheckoutElement(item).appendTo(".table");
@@ -24,6 +25,37 @@ $(() => {
     });
     console.log("******", orderObject);
   }
+
+  $("#pay-in-person").on('click', function(event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: `/api/checkout/${id}`,
+      data: {
+        payemnt_option: "in_person",
+        items: orderObject
+      }
+    })
+    .done(() => {
+      window.location.href = `/`;
+    });
+  }); 
+
+   $("#pay-online").on('click', function(event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: `/api/checkout/${id}`,
+      data: {
+        payemnt_option: "credit_card",
+        items: orderObject
+      }
+    })
+    .done(() => {
+      window.location.href = `/`;
+    });
+  }); 
+
 });
 
 function createCheckoutElement (item){
