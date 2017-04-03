@@ -42,8 +42,18 @@ module.exports = (knex) => {
               return console.error(err);
             });
         }
-        // res.json(orderID);
       });
+
+      knex('order_items').select('menu_items.name', 'order_items.quantity')
+        .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
+        .where('order_items.order_id', orderID)
+        .then((rows) => {
+          twilio_helper.call(req.params.id, rows);
+          res.status(200).end();
+        })
+        .catch((err) => { 
+          return console.error(err);
+        });
 
     // .then((rows) => {
     //     console.log('This is the rows', rows);
