@@ -40,6 +40,20 @@ function text(minutes) {
   });
 }
 
+function orderReady(text) {
+  client.messages.create({
+    to: MY_PHONE,
+    from: TWILIO_PHONE_NUMBER,
+    body: text
+  }, function(err, message) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(JSON.stringify(message));
+    }
+  });
+}
+
 module.exports = {
   call,
   text
