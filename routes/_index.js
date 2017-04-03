@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router  = express.Router();
-const moment  = require('moment-timezone');
 
 module.exports = (knex) => {
 
@@ -16,9 +15,6 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
-    // Timestamp with time zone
-    let date = moment().tz("America/Vancouver").format();
-
     // Get the uset ID
     let user_id = req.cookies.user_id;
     
@@ -26,7 +22,7 @@ module.exports = (knex) => {
     let orderID;
     // Create entry in orders table
     knex('orders')
-      .insert({user_id: user_id, payment_option: payment_option, placed_at: date}, 'id')
+      .insert({user_id: user_id}, 'id')
       .asCallback((err, rows) => {
         if (err) {
           return console.error(err);

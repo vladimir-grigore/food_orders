@@ -1,13 +1,9 @@
 $(() => {
-
   var url = window.location.pathname;
   var id = url.substring(url.lastIndexOf('/') + 1);
-
   loadPage();
 
   function loadPage(){
-    console.log("ON THE CHECKOUT PAGE");
-
     $.ajax({
       method: "GET",
       url: `/api/checkout/${id}`
@@ -17,7 +13,8 @@ $(() => {
           orderObject[item.menu_item_id] = {
             "price": item.price,
             "quantity": item.quantity,
-            "menu_item_id": item.menu_item_id
+            "menu_item_id": item.menu_item_id,
+            "name": item.name
           };
         }
         createCheckoutElement(item).appendTo(".table");
