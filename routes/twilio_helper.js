@@ -8,7 +8,6 @@ const MY_PHONE = process.env.MY_PHONE;
 var client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 function call(order_number, order_items){
-  // order_items = [ {name: 'spaghetti', quantity: 5}, {name:'donuts', quantity:2} ]
   let orderItemParamString = order_items.map((item) => `${item.quantity}+${item.name}`.replace(' ', '+')).join(',');
   let orderNumberString = `order+number+${order_number}`;
   let urlString = `https://frozen-everglades-65134.herokuapp.com/?items=${orderNumberString},${orderItemParamString}`;
@@ -56,5 +55,6 @@ function orderReady(text) {
 
 module.exports = {
   call,
-  text
+  text,
+  orderReady
 };
