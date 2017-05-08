@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 const moment  = require('moment-timezone');
-const twilio_helper = require('./twilio_helper');
+// const twilio_helper = require('./twilio_helper');
 
 module.exports = (knex) => {
 
@@ -55,7 +55,7 @@ module.exports = (knex) => {
       }).catch((err) => {
         return console.error(err);
       });
-      twilio_helper.text(time);
+      // twilio_helper.text(time);
   });
 
   router.post("/complete/:id", (req, res) => {
@@ -70,7 +70,7 @@ module.exports = (knex) => {
       }).catch((err) => {
         return console.error(err);
       });
-      twilio_helper.orderReady('Your order is ready to be picked up!')
+      // twilio_helper.orderReady('Your order is ready to be picked up!')
   });
 
   return router;

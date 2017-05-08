@@ -26,7 +26,7 @@ $(() => {
       method: "POST",
       url: `/api/orders/complete/${order_id}`,
       data: {order_id: order_id}
-    }).done(loadPage());
+    }).done(loadPage);
   }
 
   function addTimeEstimate(time_estimate, order_id){

@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 const moment  = require('moment-timezone');
-const twilio_helper = require('./twilio_helper');
+// const twilio_helper = require('./twilio_helper');
 
 module.exports = (knex) => {
 
@@ -42,14 +42,16 @@ module.exports = (knex) => {
                     .join('menu_items', 'order_items.menu_item_id', 'menu_items.id')
                     .where('order_items.order_id', orderID)
                     .then((rows) => {
-                      twilio_helper.call(req.params.id, rows);
+                      // twilio_helper.call(req.params.id, rows);
                       res.status(200).end();
                     })
-                    .catch((err) => { 
+                    .catch((err) => {
                       return console.error(err);
                     });
-            }).then((rows) => {})
-            .catch((err) => { 
+            }).then((rows) => {
+
+            })
+            .catch((err) => {
               return console.error(err);
             });
         }
@@ -63,7 +65,7 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
       })
-      .catch((err) => { 
+      .catch((err) => {
         return console.error(err);
       });
 
