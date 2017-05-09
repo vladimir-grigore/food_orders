@@ -16,7 +16,7 @@ const logoutRoutes   = require("./routes/_logout");
 const checkoutRoutes = require("./routes/_checkout");
 const orderRoutes    = require("./routes/_orders");
 const twilio_helper  = require('./routes/twilio_helper');
-const indexRoutes     = require("./routes/_index");
+const indexRoutes    = require("./routes/_index");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.

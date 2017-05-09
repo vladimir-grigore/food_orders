@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/login.js"></script>
-  </head>
-
+<%- include partials/_head %>
   <body>
-    <h1>Login!</h1>
-    <form class="login" action="/login" method="POST">
-      <label for="username">Enter your username:</label>
-      <input id="username" type="text" name="username" style="width: 300px">
-      <label for="password">Enter your password:</label>
-      <input id="password" type="password" name="password" style="width: 300px">
-      <input type="submit" value="Log in">
-    </form>
+  
+    <div class="container">
+      <section class="login-container">
+       
+        <div class="container">
+          <div class="col-sm-6">
+            <div class="col-sm-8 col-sm-offset-6">
+            <h1 class="login">Login</h1>
+              <form class="login" action="/login" method="POST">
+                <input class="form-control" id="username" type="text" name="username" placeholder="Enter your username...">
+                <input class="form-control" id="password" type="password" name="password" placeholder="Enter your password...">
+                <input id="login-btn" type="submit" value="Log in">
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  <script type="text/javascript" src="/scripts/login.js"></script>
   </body>
 </html>

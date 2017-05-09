@@ -38,7 +38,7 @@ The final step is to close the order by clicking Order Complete (followed by ano
 
 ### Note:
 The app makes use of a user id stored in a cookie.
-In order to set that, please access http://localhost:8080/login (page under construction)
+In order to set that, please access http://localhost:8080/login
 and enter username "vlad", password "12345".
 
 The twillio related code is commented out to prevent additional billing to the test account.
